@@ -1,582 +1,295 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Uncompiled</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #0d0d0d;
-      --bg2: #111111;
-      --bg3: #161616;
-      --surface: #1a1a1a;
-      --border: #222222;
-      --border2: #2a2a2a;
-      --text: #e8e4dc;
-      --text-muted: #6b6760;
-      --text-dim: #3a3835;
-      --accent: #c8a96e;
-      --accent2: #e8c887;
-      --accent-dim: #2a2218;
-      --red: #c0392b;
       --mono: 'DM Mono', monospace;
       --serif: 'Playfair Display', Georgia, serif;
       --sans: 'DM Sans', sans-serif;
     }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--sans);
-      font-weight: 300;
-      line-height: 1.7;
-      min-height: 100vh;
-      overflow-x: hidden;
+    [data-theme="dark"] {
+      --bg: #0d0d0d; --bg2: #111111; --surface: #1a1a1a;
+      --border: #222222; --border2: #2a2a2a;
+      --text: #e8e4dc; --text-muted: #6b6760; --text-dim: #3a3835;
+      --accent: #c8a96e; --accent-dim: #2a2218;
+      --header-bg: rgba(13,13,13,0.95); --menu-bg: #0d0d0d; --grain-op: 0.4;
     }
-
-    /* GRAIN OVERLAY */
+    [data-theme="light"] {
+      --bg: #f5f2ec; --bg2: #edeae2; --surface: #ece8de;
+      --border: #d8d4ca; --border2: #ccc8be;
+      --text: #1a1814; --text-muted: #7a7670; --text-dim: #b0aca4;
+      --accent: #96722a; --accent-dim: #f0e8d4;
+      --header-bg: rgba(245,242,236,0.95); --menu-bg: #f5f2ec; --grain-op: 0.15;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: var(--sans); font-weight: 300;
+      line-height: 1.7; min-height: 100vh; overflow-x: hidden;
+      transition: background 0.3s, color 0.3s;
+    }
     body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
+      content: ''; position: fixed; inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 1000;
-      opacity: 0.4;
+      pointer-events: none; z-index: 999; opacity: var(--grain-op);
     }
 
     /* HEADER */
     header {
-      border-bottom: 1px solid var(--border);
-      padding: 0 2rem;
-      position: sticky;
-      top: 0;
-      background: rgba(13,13,13,0.95);
-      backdrop-filter: blur(12px);
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px;
+      border-bottom: 1px solid var(--border); padding: 0 2rem;
+      position: sticky; top: 0; background: var(--header-bg);
+      backdrop-filter: blur(12px); z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px; transition: background 0.3s, border-color 0.3s;
     }
-
     .logo {
-      font-family: var(--mono);
-      font-size: 1.1rem;
-      letter-spacing: 0.08em;
-      color: var(--accent);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+      font-family: var(--mono); font-size: 1.05rem;
+      letter-spacing: 0.08em; color: var(--accent);
+      text-decoration: none; display: flex; align-items: center; gap: 0.4rem;
     }
+    .logo::before { content: '//'; color: var(--text-muted); font-size: 0.8rem; }
+    .header-right { display: flex; align-items: center; gap: 1.25rem; }
 
-    .logo::before {
-      content: '//';
-      color: var(--text-muted);
-      font-size: 0.85rem;
+    .nav-links { display: flex; align-items: center; gap: 0.1rem; list-style: none; }
+    .nav-links a {
+      font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text-muted);
+      text-decoration: none; padding: 0.4rem 0.75rem; transition: color 0.2s;
     }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
 
-    .header-meta {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+    .theme-btn {
+      background: none; border: 1px solid var(--border2); color: var(--text-muted);
+      font-family: var(--mono); font-size: 0.65rem; padding: 0.35rem 0.75rem;
+      cursor: pointer; letter-spacing: 0.1em;
+      transition: color 0.2s, border-color 0.2s;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .theme-btn:hover { color: var(--accent); border-color: var(--accent); }
+
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px; background: none; border: none;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 1.5px;
+      background: var(--text-muted); transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* MOBILE MENU */
+    .mobile-menu {
+      position: fixed; top: 64px; left: 0; right: 0; bottom: 0;
+      background: var(--menu-bg); z-index: 90;
+      display: flex; flex-direction: column;
+      padding: 3rem 2rem; gap: 0;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), background 0.3s;
+    }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-nav-link {
+      font-family: var(--serif); font-size: clamp(1.8rem, 7vw, 2.5rem);
+      font-weight: 700; font-style: italic; color: var(--text);
+      text-decoration: none; padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .mobile-nav-link:hover { color: var(--accent); }
+    .mobile-nav-link span {
+      font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--text-dim);
+      font-style: normal; font-weight: 300;
+    }
+    .mobile-theme-row { margin-top: 2.5rem; display: flex; align-items: center; gap: 1rem; }
+    .mobile-theme-label {
+      font-family: var(--mono); font-size: 0.65rem;
+      letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim);
     }
 
     /* HERO */
     .hero {
-      padding: 5rem 2rem 4rem;
-      max-width: 860px;
-      margin: 0 auto;
-      animation: fadeUp 0.8s ease both;
+      padding: 5rem 2rem 4rem; max-width: 860px;
+      margin: 0 auto; animation: fadeUp 0.7s ease both;
     }
-
     .hero-tag {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
+      font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 0.75rem; opacity: 0.85;
     }
-
-    .hero-tag::after {
-      content: '';
-      display: block;
-      width: 40px;
-      height: 1px;
-      background: var(--accent);
-      opacity: 0.4;
-    }
-
+    .hero-tag::after { content: ''; width: 40px; height: 1px; background: var(--accent); opacity: 0.4; }
     .hero h1 {
-      font-family: var(--serif);
-      font-size: clamp(2.8rem, 7vw, 5rem);
-      font-weight: 900;
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-      color: var(--text);
-      margin-bottom: 1.5rem;
+      font-family: var(--serif); font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 900; line-height: 1.05; letter-spacing: -0.02em;
+      color: var(--text); margin-bottom: 1.5rem;
     }
-
-    .hero h1 em {
-      font-style: italic;
-      color: var(--accent);
-    }
-
+    .hero h1 em { font-style: italic; color: var(--accent); }
     .hero-desc {
-      font-size: 1rem;
-      color: var(--text-muted);
-      max-width: 520px;
-      line-height: 1.8;
-      font-family: var(--mono);
-      font-size: 0.82rem;
-      letter-spacing: 0.01em;
+      font-family: var(--mono); font-size: 0.82rem;
+      color: var(--text-muted); max-width: 520px; line-height: 1.85; letter-spacing: 0.01em;
     }
 
     /* DIVIDER */
     .divider {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 3rem;
+      max-width: 860px; margin: 0 auto 3rem; padding: 0 2rem;
+      display: flex; align-items: center; gap: 1rem;
     }
-
-    .divider-line {
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
+    .divider-line { flex: 1; height: 1px; background: var(--border); }
     .divider-label {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--text-dim);
+      font-family: var(--mono); font-size: 0.65rem;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim);
     }
 
-    /* FEATURED SERIES */
-    .series-banner {
-      max-width: 860px;
-      margin: 0 auto 4rem;
-      padding: 0 2rem;
-      animation: fadeUp 0.8s 0.1s ease both;
+    /* SERIES CARDS */
+    .series-grid {
+      max-width: 860px; margin: 0 auto; padding: 0 2rem 6rem;
+      display: grid; gap: 1.5rem; animation: fadeUp 0.7s 0.1s ease both;
     }
-
-    .series-label {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1rem;
-      opacity: 0.8;
+    .series-card {
+      border: 1px solid var(--border); background: var(--surface);
+      padding: 2.5rem; text-decoration: none; color: inherit; display: block;
+      transition: border-color 0.25s, background 0.3s; position: relative; overflow: hidden;
     }
-
-    .series-title {
-      font-family: var(--serif);
-      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 0.5rem;
-      font-style: italic;
+    .series-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 0; height: 2px; background: var(--accent); transition: width 0.4s ease;
     }
+    .series-card:hover { border-color: var(--border2); }
+    .series-card:hover::after { width: 100%; }
 
-    .series-desc {
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-bottom: 2rem;
-      line-height: 1.7;
-      max-width: 600px;
+    .card-eyebrow {
+      font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; opacity: 0.8;
+      display: flex; align-items: center; gap: 1rem;
     }
-
-    /* POSTS GRID */
-    .posts {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 0 2rem 6rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0;
+    .card-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--accent); opacity: 0.5; }
+    .card-title {
+      font-family: var(--serif); font-size: clamp(1.2rem, 3vw, 1.6rem);
+      font-weight: 700; font-style: italic; line-height: 1.2;
+      color: var(--text); margin-bottom: 0.75rem;
     }
-
-    .post-item {
-      border-top: 1px solid var(--border);
-      padding: 2.2rem 0;
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 2rem;
-      cursor: pointer;
-      transition: background 0.2s;
-      animation: fadeUp 0.6s ease both;
-      text-decoration: none;
-      color: inherit;
+    .card-desc {
+      font-size: 0.85rem; color: var(--text-muted);
+      line-height: 1.75; max-width: 580px; margin-bottom: 1.5rem;
     }
-
-    .post-item:nth-child(1) { animation-delay: 0.15s; }
-    .post-item:nth-child(2) { animation-delay: 0.22s; }
-    .post-item:nth-child(3) { animation-delay: 0.29s; }
-    .post-item:nth-child(4) { animation-delay: 0.36s; }
-
-    .post-item:hover .post-title { color: var(--accent); }
-    .post-item:hover .post-number { color: var(--accent); border-color: var(--accent); }
-
-    .post-number {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      color: var(--text-dim);
-      border: 1px solid var(--border2);
-      height: 32px;
-      width: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 4px;
-      transition: color 0.2s, border-color 0.2s;
-      flex-shrink: 0;
+    .card-footer { display: flex; align-items: center; justify-content: space-between; }
+    .card-parts { display: flex; gap: 0.5rem; }
+    .card-part-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); opacity: 0.3; }
+    .card-part-dot.filled { opacity: 1; }
+    .card-cta {
+      font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--accent);
+      display: flex; align-items: center; gap: 0.5rem;
     }
-
-    .post-meta-col {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .post-subtitle {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--accent);
-      opacity: 0.7;
-    }
-
-    .post-title {
-      font-family: var(--serif);
-      font-size: clamp(1.1rem, 2.5vw, 1.45rem);
-      font-weight: 700;
-      line-height: 1.25;
-      color: var(--text);
-      transition: color 0.2s;
-      font-style: italic;
-    }
-
-    .post-excerpt {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      line-height: 1.75;
-      margin-top: 0.3rem;
-      max-width: 580px;
-    }
-
-    .post-footer {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      margin-top: 0.8rem;
-    }
-
-    .post-date {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      color: var(--text-dim);
-      letter-spacing: 0.1em;
-    }
-
-    .post-read {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      color: var(--text-dim);
-      letter-spacing: 0.1em;
-    }
-
-    .post-tag {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent);
-      border: 1px solid var(--accent-dim);
-      padding: 2px 8px;
-      background: var(--accent-dim);
-    }
-
-    /* MODAL */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(8px);
-      z-index: 200;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      overflow-y: auto;
-      padding: 2rem 1rem;
-    }
-
-    .modal-overlay.open {
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    .modal {
-      background: var(--bg2);
-      border: 1px solid var(--border2);
-      max-width: 680px;
-      width: 100%;
-      margin: auto;
-      transform: translateY(24px);
-      transition: transform 0.3s ease;
-      position: relative;
-    }
-
-    .modal-overlay.open .modal {
-      transform: translateY(0);
-    }
-
-    .modal-header {
-      padding: 2.5rem 2.5rem 0;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 1.5rem;
-    }
-
-    .modal-part {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.75rem;
-      opacity: 0.8;
-    }
-
-    .modal-title {
-      font-family: var(--serif);
-      font-size: clamp(1.4rem, 4vw, 2rem);
-      font-weight: 900;
-      font-style: italic;
-      line-height: 1.15;
-      color: var(--text);
-      margin-bottom: 1rem;
-    }
-
-    .modal-meta {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      color: var(--text-dim);
-      letter-spacing: 0.1em;
-      display: flex;
-      gap: 1.5rem;
-    }
-
-    .modal-body {
-      padding: 2.5rem;
-      font-size: 0.95rem;
-      line-height: 1.9;
-      color: #c8c4bc;
-    }
-
-    .modal-body p {
-      margin-bottom: 1.4rem;
-    }
-
-    .modal-body p:last-child {
-      margin-bottom: 0;
-    }
-
-    .modal-body em {
-      color: var(--accent);
-      font-style: italic;
-    }
-
-    .modal-body strong {
-      color: var(--text);
-      font-weight: 500;
-    }
-
-    .modal-body hr {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 2rem 0;
-    }
-
-    .modal-body blockquote {
-      border-left: 2px solid var(--accent);
-      padding-left: 1.25rem;
-      margin: 1.5rem 0;
-      color: var(--text-muted);
-      font-style: italic;
-      font-family: var(--serif);
-      font-size: 1.05rem;
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 1.25rem;
-      right: 1.25rem;
-      background: none;
-      border: 1px solid var(--border2);
-      color: var(--text-muted);
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      padding: 0.4rem 0.75rem;
-      cursor: pointer;
-      letter-spacing: 0.1em;
-      transition: color 0.2s, border-color 0.2s;
-    }
-
-    .modal-close:hover {
-      color: var(--text);
-      border-color: var(--text-muted);
+    .card-cta::after { content: '→'; }
+    .series-card.coming-soon { opacity: 0.35; pointer-events: none; }
+    .coming-tag {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--text-dim);
+      border: 1px solid var(--border2); padding: 3px 10px;
     }
 
     /* FOOTER */
     footer {
-      border-top: 1px solid var(--border);
-      padding: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      border-top: 1px solid var(--border); padding: 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: border-color 0.3s;
     }
-
-    .footer-logo {
-      font-family: var(--mono);
-      font-size: 0.8rem;
-      color: var(--text-dim);
-      letter-spacing: 0.1em;
-    }
-
-    .footer-copy {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      color: var(--text-dim);
-      letter-spacing: 0.1em;
-    }
+    .footer-logo { font-family: var(--mono); font-size: 0.8rem; color: var(--text-dim); letter-spacing: 0.1em; }
+    .footer-copy { font-family: var(--mono); font-size: 0.65rem; color: var(--text-dim); letter-spacing: 0.1em; }
 
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(18px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 680px) {
+      .nav-links, .theme-btn { display: none; }
+      .hamburger { display: flex; }
       header { padding: 0 1.25rem; }
       .hero { padding: 3rem 1.25rem 2.5rem; }
-      .series-banner, .posts { padding-left: 1.25rem; padding-right: 1.25rem; }
-      .divider { padding: 0 1.25rem; }
-      .post-item { grid-template-columns: 48px 1fr; gap: 1rem; }
-      .modal-header, .modal-body { padding: 1.5rem; }
-      .modal-header { padding-bottom: 1rem; }
-      footer { flex-direction: column; gap: 0.75rem; align-items: flex-start; padding: 1.5rem 1.25rem; }
+      .divider, .series-grid { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .series-card { padding: 1.75rem; }
+      footer { flex-direction: column; gap: 0.5rem; align-items: flex-start; padding: 1.5rem 1.25rem; }
     }
   </style>
 </head>
 <body>
 
 <header>
-  <a class="logo" href="#">Uncompiled</a>
-  <span class="header-meta">Raw thinking. Unpackaged.</span>
+  <a class="logo" href="index.html">Uncompiled</a>
+  <div class="header-right">
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="series-001.html">Series 001</a></li>
+    </ul>
+    <button class="theme-btn" onclick="toggleTheme()">
+      <span id="themeIcon">☀</span><span id="themeLabel">Light</span>
+    </button>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </header>
 
+<nav class="mobile-menu" id="mobileMenu">
+  <a class="mobile-nav-link" href="index.html" onclick="closeMenu()">Home <span>Start here</span></a>
+  <a class="mobile-nav-link" href="series-001.html" onclick="closeMenu()">Series 001 <span>4 Parts</span></a>
+  <div class="mobile-theme-row">
+    <span class="mobile-theme-label">Theme</span>
+    <button class="theme-btn" onclick="toggleTheme()">
+      <span id="themeIconM">☀</span><span id="themeLabelM">Light</span>
+    </button>
+  </div>
+</nav>
+
 <section class="hero">
-  <div class="hero-tag">Est. 2026 &nbsp;·&nbsp; Issue 001</div>
+  <div class="hero-tag">Est. 2026 &nbsp;·&nbsp; Raw Thinking</div>
   <h1>Ideas before the<br/><em>world edits them.</em></h1>
-  <p class="hero-desc">
-    A blog about broken systems, parallel builders, and the honest work of thinking differently.
-    No packaging. No terms and conditions. Just uncompiled thought.
-  </p>
+  <p class="hero-desc">A blog about the honest work of thinking differently. No packaging. No terms and conditions. Just uncompiled thought.</p>
 </section>
 
 <div class="divider">
   <div class="divider-line"></div>
-  <span class="divider-label">Featured Series</span>
+  <span class="divider-label">All Series</span>
   <div class="divider-line"></div>
 </div>
 
-<div class="series-banner">
-  <div class="series-label">Series 001 &nbsp;·&nbsp; 4 Parts</div>
-  <div class="series-title">I Can Repair the World, But They Won't Give Me the Source Code</div>
-  <p class="series-desc">
-    The world's problems are not unsolvable — they are inaccessible. This four-part series explores the hidden rules of broken systems, the people who build around them, who gets left out, and the honest cost of change.
-  </p>
-</div>
-
-<div class="posts" id="posts">
-
-  <a class="post-item" onclick="openPost(0); return false;" href="#">
-    <div class="post-number">01</div>
-    <div class="post-meta-col">
-      <span class="post-subtitle">Part One</span>
-      <div class="post-title">I Can Repair the World, But They Won't Give Me the Source Code</div>
-      <p class="post-excerpt">The solutions exist. The ideas exist. The people who can fix things exist. What is missing is access to the source code — the hidden rules, closed systems, and guarded decisions that shape our world.</p>
-      <div class="post-footer">
-        <span class="post-date">Apr 2026</span>
-        <span class="post-read">3 min read</span>
-        <span class="post-tag">Systems</span>
+<div class="series-grid">
+  <a class="series-card" href="series-001.html">
+    <div class="card-eyebrow">Series 001 &nbsp;·&nbsp; 4 Parts</div>
+    <div class="card-title">I Can Repair the World, But They Won't Give Me the Source Code</div>
+    <p class="card-desc">The world's problems are not unsolvable — they are inaccessible. A four-part series on broken systems, the people who build around them, who gets left out, and the honest cost of change.</p>
+    <div class="card-footer">
+      <div class="card-parts">
+        <div class="card-part-dot filled"></div>
+        <div class="card-part-dot filled"></div>
+        <div class="card-part-dot filled"></div>
+        <div class="card-part-dot filled"></div>
       </div>
+      <span class="card-cta">Read series</span>
     </div>
   </a>
 
-  <a class="post-item" onclick="openPost(1); return false;" href="#">
-    <div class="post-number">02</div>
-    <div class="post-meta-col">
-      <span class="post-subtitle">Part Two</span>
-      <div class="post-title">So I Wrote My Own</div>
-      <p class="post-excerpt">What does "writing better code" actually look like in practice? From Grameen Bank to Wikipedia to cooperative savings circles — the pattern of people who stopped waiting for access and built anyway.</p>
-      <div class="post-footer">
-        <span class="post-date">Apr 2026</span>
-        <span class="post-read">4 min read</span>
-        <span class="post-tag">Builders</span>
+  <div class="series-card coming-soon">
+    <div class="card-eyebrow">Series 002 &nbsp;·&nbsp; Coming Soon</div>
+    <div class="card-title">More uncompiled thinking on the way.</div>
+    <p class="card-desc">The next series is being written. Check back soon.</p>
+    <div class="card-footer">
+      <div class="card-parts">
+        <div class="card-part-dot"></div><div class="card-part-dot"></div>
+        <div class="card-part-dot"></div><div class="card-part-dot"></div>
       </div>
+      <span class="coming-tag">In progress</span>
     </div>
-  </a>
-
-  <a class="post-item" onclick="openPost(2); return false;" href="#">
-    <div class="post-number">03</div>
-    <div class="post-meta-col">
-      <span class="post-subtitle">Part Three</span>
-      <div class="post-title">But Who Gets to Build?</div>
-      <p class="post-excerpt">The "just build it" narrative quietly ignores something: building requires resources, and resources follow the same lines as power. Who has a keyboard? Who is left out of the building?</p>
-      <div class="post-footer">
-        <span class="post-date">Apr 2026</span>
-        <span class="post-read">4 min read</span>
-        <span class="post-tag">Access</span>
-      </div>
-    </div>
-  </a>
-
-  <a class="post-item" onclick="openPost(3); return false;" href="#">
-    <div class="post-number">04</div>
-    <div class="post-meta-col">
-      <span class="post-subtitle">Part Four</span>
-      <div class="post-title">The Honest Changelog</div>
-      <p class="post-excerpt">Good code, badly deployed, still breaks things. An unedited look at what change actually costs — and why you build anyway, not because success is certain, but because surrender is worse.</p>
-      <div class="post-footer">
-        <span class="post-date">Apr 2026</span>
-        <span class="post-read">5 min read</span>
-        <span class="post-tag">Reckoning</span>
-      </div>
-    </div>
-  </a>
-
+  </div>
 </div>
 
 <footer>
@@ -584,134 +297,36 @@
   <span class="footer-copy">© 2026 · Raw thinking, unpackaged.</span>
 </footer>
 
-<!-- MODAL -->
-<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
-  <div class="modal" id="modal">
-    <button class="modal-close" onclick="closePost()">✕ close</button>
-    <div class="modal-header">
-      <div class="modal-part" id="modalPart"></div>
-      <div class="modal-title" id="modalTitle"></div>
-      <div class="modal-meta" id="modalMeta"></div>
-    </div>
-    <div class="modal-body" id="modalBody"></div>
-  </div>
-</div>
-
 <script>
-  const posts = [
-    {
-      part: "Series 001 · Part One",
-      title: "I Can Repair the World, But They Won't Give Me the Source Code",
-      date: "April 2026",
-      read: "3 min read",
-      body: `
-        <p>Many of the world's problems are not unsolvable: they're inaccessible. The solutions exist. The ideas exist. The people who can fix things exist. What is missing is the access to the source code: the hidden rules, closed systems, and guarded decisions that shape education, economics, governance, and technology.</p>
-        <p>We can see the bugs clearly. Inequality loops endlessly. Institutions crash and reboot without real change. Innovation is welcomed in theory but blocked in practice. Those who ask to see how the system really works are labeled disruptive, even when the system is failing.</p>
-        <p>The world runs on proprietary logic. A few write the rules; everyone else just uses the app and accepts the terms and conditions attached to it.</p>
-        <hr/>
-        <p>But history shows something important: when access is denied, new systems are built. Open ideas replace closed ones. Parallel solutions expose better ways of doing things. The old code doesn't get fixed — it gets replaced.</p>
-        <p>So maybe the goal isn't to be given the source code anymore.</p>
-        <p>Maybe it's to write better code: open, fair, and human — and let the world see that it works.</p>
-      `
-    },
-    {
-      part: "Series 001 · Part Two",
-      title: "So I Wrote My Own",
-      date: "April 2026",
-      read: "4 min read",
-      body: `
-        <p>There is a particular kind of frustration that comes not from failure, but from clarity.</p>
-        <p>You see the problem exactly. You understand what is broken. You can sketch the fix on a napkin. But between that napkin and the actual system sits a wall with no door — only a sign: <em>Access Restricted. Authorised Personnel Only.</em></p>
-        <p>Most people walk away from that wall. A few decide to build somewhere else entirely.</p>
-        <hr/>
-        <p>Muhammad Yunus couldn't fix global banking. So he wrote new code — small loans, trust-based repayment, community accountability. Grameen Bank wasn't a patch on the old system. It was a parallel architecture, open to the people the old system had closed out.</p>
-        <p>Wikipedia didn't lobby the encyclopaedia industry. It simply said: <em>let anyone improve it, let the world verify it.</em> The proprietary encyclopaedias are mostly gone. Wikipedia serves billions.</p>
-        <p>Neither won by attacking the old system. They won by being more useful.</p>
-        <hr/>
-        <p>The pattern repeats. Linux. Community radio. Cooperative savings circles. Teachers who couldn't change the curriculum and started YouTube channels instead.</p>
-        <p>None of them were given the source code. All of them wrote their own.</p>
-        <hr/>
-        <p>This is not always celebrated. Resistance intensifies the moment your parallel system starts working. But that resistance is itself the argument for why it was necessary.</p>
-        <p>Writing better code doesn't require a revolution. It requires a decision — to stop waiting for access and start building with what you have.</p>
-        <p>You already see the bugs. You have been seeing them.</p>
-        <p>The question is no longer <em>when will someone fix this.</em> The question is: <em>what will you build?</em></p>
-      `
-    },
-    {
-      part: "Series 001 · Part Three",
-      title: "But Who Gets to Build?",
-      date: "April 2026",
-      read: "4 min read",
-      body: `
-        <p>We love the story of the builder.</p>
-        <p>The outsider who saw what others missed. The underdog who built a parallel system and changed everything. We tell it often because it is true — and because it is inspiring. But inspiration has a habit of skipping the fine print.</p>
-        <hr/>
-        <p>Not everyone who sees the bug gets to fix it.</p>
-        <p>Yunus had a PhD from Vanderbilt. Linus Torvalds had a computer. Jimmy Wales had startup capital. Even the most celebrated "outsider" builders had something the system had already given them — education, connectivity, time, safety, or the kind of name that gets a meeting.</p>
-        <p>What about the person who sees the problem just as clearly but has none of those things?</p>
-        <p>The woman in a rural community who knows exactly why the local health system is failing but cannot leave her responsibilities to build an alternative. The young man with the idea but no device, no data, no investor who looks like him in the room. The teacher who sees a better way to educate children but spends every evening surviving, not building.</p>
-        <p>They are not lacking vision. They are lacking runway.</p>
-        <hr/>
-        <p>This is the part the "just build it" narrative quietly ignores: building requires resources, and resources are not randomly distributed. They follow the same lines as power — the same lines that created the broken systems in the first place.</p>
-        <p>So when we say <em>write your own code</em>, we must be honest about who has a keyboard.</p>
-        <hr/>
-        <p>This does not mean the builders are frauds or the stories are lies. It means the story is incomplete.</p>
-        <p>The builders who make it through must lower the wall behind them, not just celebrate that they climbed it. Open systems must be genuinely open. And the question we ask cannot only be <em>what will you build</em> — it must also be <em>who are we leaving out of the building?</em></p>
-        <p>The world does not need a few remarkable builders. It needs conditions where building is possible for the many — where the person with the clearest view of the problem is not automatically the last one given the tools to fix it.</p>
-        <p>That is not just better code. That is a better compiler.</p>
-      `
-    },
-    {
-      part: "Series 001 · Part Four",
-      title: "The Honest Changelog",
-      date: "April 2026",
-      read: "5 min read",
-      body: `
-        <p>Every software project has a changelog — a record of what was fixed, what was attempted, and what was quietly abandoned because it was harder than anyone admitted. The world needs one too.</p>
-        <hr/>
-        <p>Let's be honest about what has actually happened.</p>
-        <p>The open-source movement changed software. It also created new gatekeepers, new hierarchies, and new ways to extract value from people who contributed freely. Wikipedia democratised knowledge. It also struggled for years with editor demographics so skewed that entire regions and experiences were systematically underrepresented. Microfinance lifted some. It also buried others in debt cycles that the glossy case studies never followed up on.</p>
-        <p>Good code, badly deployed, still breaks things. This is not a reason to stop building. It is a reason to stop pretending that building is enough.</p>
-        <hr/>
-        <p>Change is slow in ways that are genuinely hard to sit with. Not slow like a download on a bad connection — where you can at least watch the progress bar. Slow like a shift in the water table. Invisible. Nonlinear. Sometimes you only know it happened by looking back from a distance you haven't reached yet.</p>
-        <p>Most people who work on broken systems will not see the fix in their lifetime. This is the part no one puts in the pitch deck.</p>
-        <hr/>
-        <p>And yet. The changelog of human history — honest, unedited — still shows a direction. Imperfect, interrupted, often reversed. But a direction. They did not have hope as a feeling. They had it as a practice.</p>
-        <hr/>
-        <p>So here is what the reckoning actually looks like: you will probably not change the whole system. Your parallel system may fail, or succeed quietly, or be absorbed and stripped of everything that made it work.</p>
-        <p>And you build anyway. Not because success is certain. But because the alternative — accepting that the broken way is permanent — is its own kind of surrender.</p>
-        <p>You document what worked. You name what failed honestly. You pass the tools to whoever comes next and tell them the truth about what they are inheriting.</p>
-        <p>That is the changelog. That is the work.</p>
-        <hr/>
-        <p>The world is not a problem to be solved and closed. It is an open file — always being written, always incomplete, always in need of the next person willing to sit down and type.</p>
-        <p>You will not finish it. But you can move the cursor forward.</p>
-      `
-    }
-  ];
+  const html = document.documentElement;
+  const saved = localStorage.getItem('uc-theme') || 'dark';
+  applyTheme(saved);
 
-  function openPost(index) {
-    const p = posts[index];
-    document.getElementById('modalPart').textContent = p.part;
-    document.getElementById('modalTitle').textContent = p.title;
-    document.getElementById('modalMeta').innerHTML = `<span>${p.date}</span><span>${p.read}</span>`;
-    document.getElementById('modalBody').innerHTML = p.body;
-    document.getElementById('modalOverlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
-    document.getElementById('modalOverlay').scrollTop = 0;
+  function applyTheme(t) {
+    html.setAttribute('data-theme', t);
+    localStorage.setItem('uc-theme', t);
+    const dark = t === 'dark';
+    document.getElementById('themeIcon').textContent = dark ? '☀' : '☾';
+    document.getElementById('themeLabel').textContent = dark ? 'Light' : 'Dark';
+    document.getElementById('themeIconM').textContent = dark ? '☀' : '☾';
+    document.getElementById('themeLabelM').textContent = dark ? 'Light' : 'Dark';
   }
 
-  function closePost() {
-    document.getElementById('modalOverlay').classList.remove('open');
+  function toggleTheme() {
+    applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  }
+
+  function toggleMenu() {
+    const open = document.getElementById('mobileMenu').classList.toggle('open');
+    document.getElementById('hamburger').classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
     document.body.style.overflow = '';
   }
-
-  function handleOverlayClick(e) {
-    if (e.target === document.getElementById('modalOverlay')) closePost();
-  }
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closePost();
-  });
 </script>
 </body>
 </html>
