@@ -3,235 +3,28 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Uncompiled</title>
+  <title>Re:Think</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --mono: 'DM Mono', monospace;
-      --serif: 'Playfair Display', Georgia, serif;
-      --sans: 'DM Sans', sans-serif;
-    }
-    [data-theme="dark"] {
-      --bg: #0d0d0d; --bg2: #111111; --surface: #1a1a1a;
-      --border: #222222; --border2: #2a2a2a;
-      --text: #e8e4dc; --text-muted: #6b6760; --text-dim: #3a3835;
-      --accent: #c8a96e; --accent-dim: #2a2218;
-      --header-bg: rgba(13,13,13,0.95); --menu-bg: #0d0d0d; --grain-op: 0.4;
-    }
-    [data-theme="light"] {
-      --bg: #f5f2ec; --bg2: #edeae2; --surface: #ece8de;
-      --border: #d8d4ca; --border2: #ccc8be;
-      --text: #1a1814; --text-muted: #7a7670; --text-dim: #b0aca4;
-      --accent: #96722a; --accent-dim: #f0e8d4;
-      --header-bg: rgba(245,242,236,0.95); --menu-bg: #f5f2ec; --grain-op: 0.15;
-    }
-    html { scroll-behavior: smooth; }
-    body {
-      background: var(--bg); color: var(--text);
-      font-family: var(--sans); font-weight: 300;
-      line-height: 1.7; min-height: 100vh; overflow-x: hidden;
-      transition: background 0.3s, color 0.3s;
-    }
-    body::before {
-      content: ''; position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 999; opacity: var(--grain-op);
-    }
-
-    /* HEADER */
-    header {
-      border-bottom: 1px solid var(--border); padding: 0 2rem;
-      position: sticky; top: 0; background: var(--header-bg);
-      backdrop-filter: blur(12px); z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 64px; transition: background 0.3s, border-color 0.3s;
-    }
-    .logo {
-      font-family: var(--mono); font-size: 1.05rem;
-      letter-spacing: 0.08em; color: var(--accent);
-      text-decoration: none; display: flex; align-items: center; gap: 0.4rem;
-    }
-    .logo::before { content: '//'; color: var(--text-muted); font-size: 0.8rem; }
-    .header-right { display: flex; align-items: center; gap: 1.25rem; }
-
-    .nav-links { display: flex; align-items: center; gap: 0.1rem; list-style: none; }
-    .nav-links a {
-      font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--text-muted);
-      text-decoration: none; padding: 0.4rem 0.75rem; transition: color 0.2s;
-    }
-    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
-
-    .theme-btn {
-      background: none; border: 1px solid var(--border2); color: var(--text-muted);
-      font-family: var(--mono); font-size: 0.65rem; padding: 0.35rem 0.75rem;
-      cursor: pointer; letter-spacing: 0.1em;
-      transition: color 0.2s, border-color 0.2s;
-      display: flex; align-items: center; gap: 0.4rem;
-    }
-    .theme-btn:hover { color: var(--accent); border-color: var(--accent); }
-
-    .hamburger {
-      display: none; flex-direction: column; gap: 5px;
-      cursor: pointer; padding: 4px; background: none; border: none;
-    }
-    .hamburger span {
-      display: block; width: 22px; height: 1.5px;
-      background: var(--text-muted); transition: all 0.3s;
-    }
-    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-    /* MOBILE MENU */
-    .mobile-menu {
-      position: fixed; top: 64px; left: 0; right: 0; bottom: 0;
-      background: var(--menu-bg); z-index: 90;
-      display: flex; flex-direction: column;
-      padding: 3rem 2rem; gap: 0;
-      transform: translateX(100%);
-      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), background 0.3s;
-    }
-    .mobile-menu.open { transform: translateX(0); }
-    .mobile-nav-link {
-      font-family: var(--serif); font-size: clamp(1.8rem, 7vw, 2.5rem);
-      font-weight: 700; font-style: italic; color: var(--text);
-      text-decoration: none; padding: 1rem 0;
-      border-bottom: 1px solid var(--border);
-      transition: color 0.2s;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .mobile-nav-link:hover { color: var(--accent); }
-    .mobile-nav-link span {
-      font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.15em;
-      text-transform: uppercase; color: var(--text-dim);
-      font-style: normal; font-weight: 300;
-    }
-    .mobile-theme-row { margin-top: 2.5rem; display: flex; align-items: center; gap: 1rem; }
-    .mobile-theme-label {
-      font-family: var(--mono); font-size: 0.65rem;
-      letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim);
-    }
-
-    /* HERO */
-    .hero {
-      padding: 5rem 2rem 4rem; max-width: 860px;
-      margin: 0 auto; animation: fadeUp 0.7s ease both;
-    }
-    .hero-tag {
-      font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem;
-      display: flex; align-items: center; gap: 0.75rem; opacity: 0.85;
-    }
-    .hero-tag::after { content: ''; width: 40px; height: 1px; background: var(--accent); opacity: 0.4; }
-    .hero h1 {
-      font-family: var(--serif); font-size: clamp(2.8rem, 7vw, 5rem);
-      font-weight: 900; line-height: 1.05; letter-spacing: -0.02em;
-      color: var(--text); margin-bottom: 1.5rem;
-    }
-    .hero h1 em { font-style: italic; color: var(--accent); }
-    .hero-desc {
-      font-family: var(--mono); font-size: 0.82rem;
-      color: var(--text-muted); max-width: 520px; line-height: 1.85; letter-spacing: 0.01em;
-    }
-
-    /* DIVIDER */
-    .divider {
-      max-width: 860px; margin: 0 auto 3rem; padding: 0 2rem;
-      display: flex; align-items: center; gap: 1rem;
-    }
-    .divider-line { flex: 1; height: 1px; background: var(--border); }
-    .divider-label {
-      font-family: var(--mono); font-size: 0.65rem;
-      letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim);
-    }
-
-    /* SERIES CARDS */
-    .series-grid {
-      max-width: 860px; margin: 0 auto; padding: 0 2rem 6rem;
-      display: grid; gap: 1.5rem; animation: fadeUp 0.7s 0.1s ease both;
-    }
-    .series-card {
-      border: 1px solid var(--border); background: var(--surface);
-      padding: 2.5rem; text-decoration: none; color: inherit; display: block;
-      transition: border-color 0.25s, background 0.3s; position: relative; overflow: hidden;
-    }
-    .series-card::after {
-      content: ''; position: absolute; bottom: 0; left: 0;
-      width: 0; height: 2px; background: var(--accent); transition: width 0.4s ease;
-    }
-    .series-card:hover { border-color: var(--border2); }
-    .series-card:hover::after { width: 100%; }
-
-    .card-eyebrow {
-      font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; opacity: 0.8;
-      display: flex; align-items: center; gap: 1rem;
-    }
-    .card-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--accent); opacity: 0.5; }
-    .card-title {
-      font-family: var(--serif); font-size: clamp(1.2rem, 3vw, 1.6rem);
-      font-weight: 700; font-style: italic; line-height: 1.2;
-      color: var(--text); margin-bottom: 0.75rem;
-    }
-    .card-desc {
-      font-size: 0.85rem; color: var(--text-muted);
-      line-height: 1.75; max-width: 580px; margin-bottom: 1.5rem;
-    }
-    .card-footer { display: flex; align-items: center; justify-content: space-between; }
-    .card-parts { display: flex; gap: 0.5rem; }
-    .card-part-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); opacity: 0.3; }
-    .card-part-dot.filled { opacity: 1; }
-    .card-cta {
-      font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.15em;
-      text-transform: uppercase; color: var(--accent);
-      display: flex; align-items: center; gap: 0.5rem;
-    }
-    .card-cta::after { content: '→'; }
-    .series-card.coming-soon { opacity: 0.35; pointer-events: none; }
-    .coming-tag {
-      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.15em;
-      text-transform: uppercase; color: var(--text-dim);
-      border: 1px solid var(--border2); padding: 3px 10px;
-    }
-
-    /* FOOTER */
-    footer {
-      border-top: 1px solid var(--border); padding: 2rem;
-      display: flex; align-items: center; justify-content: space-between;
-      transition: border-color 0.3s;
-    }
-    .footer-logo { font-family: var(--mono); font-size: 0.8rem; color: var(--text-dim); letter-spacing: 0.1em; }
-    .footer-copy { font-family: var(--mono); font-size: 0.65rem; color: var(--text-dim); letter-spacing: 0.1em; }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(18px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 680px) {
-      .nav-links, .theme-btn { display: none; }
-      .hamburger { display: flex; }
-      header { padding: 0 1.25rem; }
-      .hero { padding: 3rem 1.25rem 2.5rem; }
-      .divider, .series-grid { padding-left: 1.25rem; padding-right: 1.25rem; }
-      .series-card { padding: 1.75rem; }
-      footer { flex-direction: column; gap: 0.5rem; align-items: flex-start; padding: 1.5rem 1.25rem; }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css"/>
+  <!-- Apply theme before paint to prevent flash -->
+  <script>
+    (function() {
+      var t = localStorage.getItem('rt-theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
 </head>
 <body>
 
 <header>
-  <a class="logo" href="index.html">Uncompiled</a>
+  <a class="logo" href="index.html">Re:Think</a>
   <div class="header-right">
     <ul class="nav-links">
       <li><a href="index.html" class="active">Home</a></li>
       <li><a href="series-001.html">Series 001</a></li>
     </ul>
     <button class="theme-btn" onclick="toggleTheme()">
-      <span id="themeIcon">☀</span><span id="themeLabel">Light</span>
+      <span class="theme-icon">☀</span><span class="theme-label">Light</span>
     </button>
     <button class="hamburger" id="hamburger" onclick="toggleMenu()">
       <span></span><span></span><span></span>
@@ -245,15 +38,15 @@
   <div class="mobile-theme-row">
     <span class="mobile-theme-label">Theme</span>
     <button class="theme-btn" onclick="toggleTheme()">
-      <span id="themeIconM">☀</span><span id="themeLabelM">Light</span>
+      <span class="theme-icon">☀</span><span class="theme-label">Light</span>
     </button>
   </div>
 </nav>
 
 <section class="hero">
   <div class="hero-tag">Est. 2026 &nbsp;·&nbsp; Raw Thinking</div>
-  <h1>Ideas before the<br/><em>world edits them.</em></h1>
-  <p class="hero-desc">A blog about the honest work of thinking differently. No packaging. No terms and conditions. Just uncompiled thought.</p>
+  <h1>The world hands you a script.<br/><em>Re:Think reads between the lines.</em></h1>
+  <p class="hero-desc">A blog for people who question the defaults — in systems, in thinking, in the way things have always been done.</p>
 </section>
 
 <div class="divider">
@@ -280,7 +73,7 @@
 
   <div class="series-card coming-soon">
     <div class="card-eyebrow">Series 002 &nbsp;·&nbsp; Coming Soon</div>
-    <div class="card-title">More uncompiled thinking on the way.</div>
+    <div class="card-title">More thinking on the way.</div>
     <p class="card-desc">The next series is being written. Check back soon.</p>
     <div class="card-footer">
       <div class="card-parts">
@@ -293,40 +86,10 @@
 </div>
 
 <footer>
-  <span class="footer-logo">// Uncompiled</span>
-  <span class="footer-copy">© 2026 · Raw thinking, unpackaged.</span>
+  <span class="footer-logo">// Re:Think</span>
+  <span class="footer-copy">© 2026 · Question the defaults.</span>
 </footer>
 
-<script>
-  const html = document.documentElement;
-  const saved = localStorage.getItem('uc-theme') || 'dark';
-  applyTheme(saved);
-
-  function applyTheme(t) {
-    html.setAttribute('data-theme', t);
-    localStorage.setItem('uc-theme', t);
-    const dark = t === 'dark';
-    document.getElementById('themeIcon').textContent = dark ? '☀' : '☾';
-    document.getElementById('themeLabel').textContent = dark ? 'Light' : 'Dark';
-    document.getElementById('themeIconM').textContent = dark ? '☀' : '☾';
-    document.getElementById('themeLabelM').textContent = dark ? 'Light' : 'Dark';
-  }
-
-  function toggleTheme() {
-    applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-  }
-
-  function toggleMenu() {
-    const open = document.getElementById('mobileMenu').classList.toggle('open');
-    document.getElementById('hamburger').classList.toggle('open', open);
-    document.body.style.overflow = open ? 'hidden' : '';
-  }
-
-  function closeMenu() {
-    document.getElementById('mobileMenu').classList.remove('open');
-    document.getElementById('hamburger').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-</script>
+<script src="script.js"></script>
 </body>
 </html>
