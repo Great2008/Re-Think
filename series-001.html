@@ -6,7 +6,6 @@
   <title>Series 001 — Re:Think</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
-  <!-- Apply theme before paint to prevent flash -->
   <script>
     (function() {
       var t = localStorage.getItem('rt-theme') || 'dark';
@@ -49,12 +48,21 @@
     <span class="breadcrumb-sep">/</span>
     <span>Series 001</span>
   </div>
-  <div class="series-hero-label">Series 001 &nbsp;·&nbsp; 4 Parts</div>
+  <div class="series-hero-label">Series 001 &nbsp;·&nbsp; 4 Parts &nbsp;·&nbsp; 2 Editions</div>
   <h1>I Can Repair the World, But They Won't Give Me the Source Code</h1>
   <p class="series-hero-desc">
     The world's problems are not unsolvable — they are inaccessible. A four-part series on broken systems, the people who build around them, who gets left out, and the honest cost of change.
   </p>
 </section>
+
+<div class="edition-switcher">
+  <span class="edition-label">Choose your edition</span>
+  <div class="edition-tabs">
+    <button class="edition-tab active" data-edition="A" onclick="switchEdition('A')">Edition A — Tech</button>
+    <button class="edition-tab" data-edition="B" onclick="switchEdition('B')">Edition B — Plain</button>
+  </div>
+  <p class="edition-desc" id="editionDesc">Written with tech metaphors — for readers who speak in systems, code, and architecture.</p>
+</div>
 
 <div class="divider">
   <div class="divider-line"></div>
@@ -63,63 +71,7 @@
 </div>
 
 <div class="posts" id="posts">
-
-  <a class="post-item" onclick="openPost(0); return false;" href="#">
-    <div class="post-number">01</div>
-    <div class="post-meta-col">
-      <span class="post-subtitle">Part One</span>
-      <div class="post-title">I Can Repair the World, But They Won't Give Me the Source Code</div>
-      <p class="post-excerpt">The solutions exist. The ideas exist. The people who can fix things exist. What is missing is access — the hidden rules, closed systems, and guarded decisions that run the world.</p>
-      <div class="post-footer">
-        <span class="post-date">Apr 2026</span>
-        <span class="post-read">3 min read</span>
-        <span class="post-tag">Systems</span>
-      </div>
-    </div>
-  </a>
-
-  <a class="post-item" onclick="openPost(1); return false;" href="#">
-    <div class="post-number">02</div>
-    <div class="post-meta-col">
-      <span class="post-subtitle">Part Two</span>
-      <div class="post-title">So I Wrote My Own</div>
-      <p class="post-excerpt">What does "writing better code" actually look like? From Grameen Bank to Wikipedia — the pattern of people who stopped waiting for access and built parallel systems instead.</p>
-      <div class="post-footer">
-        <span class="post-date">Apr 2026</span>
-        <span class="post-read">4 min read</span>
-        <span class="post-tag">Builders</span>
-      </div>
-    </div>
-  </a>
-
-  <a class="post-item" onclick="openPost(2); return false;" href="#">
-    <div class="post-number">03</div>
-    <div class="post-meta-col">
-      <span class="post-subtitle">Part Three</span>
-      <div class="post-title">But Who Gets to Build?</div>
-      <p class="post-excerpt">The "just build it" narrative quietly ignores something: building requires resources, and resources follow the same lines as power. So who actually has a keyboard?</p>
-      <div class="post-footer">
-        <span class="post-date">Apr 2026</span>
-        <span class="post-read">4 min read</span>
-        <span class="post-tag">Access</span>
-      </div>
-    </div>
-  </a>
-
-  <a class="post-item" onclick="openPost(3); return false;" href="#">
-    <div class="post-number">04</div>
-    <div class="post-meta-col">
-      <span class="post-subtitle">Part Four</span>
-      <div class="post-title">The Honest Changelog</div>
-      <p class="post-excerpt">Good code, badly deployed, still breaks things. An unedited look at what change actually costs — and why you build anyway, not because success is certain, but because surrender is worse.</p>
-      <div class="post-footer">
-        <span class="post-date">Apr 2026</span>
-        <span class="post-read">5 min read</span>
-        <span class="post-tag">Reckoning</span>
-      </div>
-    </div>
-  </a>
-
+  <!-- Rendered by script.js -->
 </div>
 
 <footer>
