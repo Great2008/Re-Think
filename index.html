@@ -1,95 +1,104 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Re:Think</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="style.css"/>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
   <!-- Apply theme before paint to prevent flash -->
   <script>
-    (function() {
+    (function () {
       var t = localStorage.getItem('rt-theme') || 'dark';
       document.documentElement.setAttribute('data-theme', t);
     })();
   </script>
 </head>
+
 <body>
 
-<header>
-  <a class="logo" href="index.html">Re:Think</a>
-  <div class="header-right">
-    <ul class="nav-links">
-      <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="series-001.html">Series 001</a></li>
-    </ul>
-    <button class="theme-btn" onclick="toggleTheme()">
-      <span class="theme-icon">☀</span><span class="theme-label">Light</span>
-    </button>
-    <button class="hamburger" id="hamburger" onclick="toggleMenu()">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</header>
-
-<nav class="mobile-menu" id="mobileMenu">
-  <a class="mobile-nav-link" href="index.html" onclick="closeMenu()">Home <span>Start here</span></a>
-  <a class="mobile-nav-link" href="series-001.html" onclick="closeMenu()">Series 001 <span>4 Parts</span></a>
-  <div class="mobile-theme-row">
-    <span class="mobile-theme-label">Theme</span>
-    <button class="theme-btn" onclick="toggleTheme()">
-      <span class="theme-icon">☀</span><span class="theme-label">Light</span>
-    </button>
-  </div>
-</nav>
-
-<section class="hero">
-  <div class="hero-tag">Est. 2026 &nbsp;·&nbsp; Raw Thinking</div>
-  <h1>The world hands you a script.<br/><em>Re:Think reads between the lines.</em></h1>
-  <p class="hero-desc">A blog for people who question the defaults — in systems, in thinking, in the way things have always been done.</p>
-</section>
-
-<div class="divider">
-  <div class="divider-line"></div>
-  <span class="divider-label">All Series</span>
-  <div class="divider-line"></div>
-</div>
-
-<div class="series-grid">
-  <a class="series-card" href="series-001.html">
-    <div class="card-eyebrow">Series 001 &nbsp;·&nbsp; 4 Parts</div>
-    <div class="card-title">I Can Repair the World, But They Won't Give Me the Source Code</div>
-    <p class="card-desc">The world's problems are not unsolvable — they are inaccessible. A four-part series on broken systems, the people who build around them, who gets left out, and the honest cost of change.</p>
-    <div class="card-footer">
-      <div class="card-parts">
-        <div class="card-part-dot filled"></div>
-        <div class="card-part-dot filled"></div>
-        <div class="card-part-dot filled"></div>
-        <div class="card-part-dot filled"></div>
-      </div>
-      <span class="card-cta">Read series</span>
+  <header>
+    <a class="logo" href="index.html">Re:Think</a>
+    <div class="header-right">
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="series-001.html">Series 001</a></li>
+      </ul>
+      <button class="theme-btn" onclick="toggleTheme()">
+        <span class="theme-icon">☀</span><span class="theme-label">Light</span>
+      </button>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-  </a>
+  </header>
 
-  <div class="series-card coming-soon">
-    <div class="card-eyebrow">Series 002 &nbsp;·&nbsp; Coming Soon</div>
-    <div class="card-title">More thinking on the way.</div>
-    <p class="card-desc">The next series is being written. Check back soon.</p>
-    <div class="card-footer">
-      <div class="card-parts">
-        <div class="card-part-dot"></div><div class="card-part-dot"></div>
-        <div class="card-part-dot"></div><div class="card-part-dot"></div>
+  <nav class="mobile-menu" id="mobileMenu">
+    <a class="mobile-nav-link" href="index.html" onclick="closeMenu()">Home <span>Start here</span></a>
+    <a class="mobile-nav-link" href="series-001.html" onclick="closeMenu()">Series 001 <span>4 Parts</span></a>
+    <div class="mobile-theme-row">
+      <span class="mobile-theme-label">Theme</span>
+      <button class="theme-btn" onclick="toggleTheme()">
+        <span class="theme-icon">☀</span><span class="theme-label">Light</span>
+      </button>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-tag">Est. 2026 &nbsp;·&nbsp; Raw Thinking</div>
+    <h1>The world hands you a script.<br /><em>Re:Think reads between the lines.</em></h1>
+    <p class="hero-desc">A blog for people who question the defaults — in systems, in thinking, in the way things have
+      always been done.</p>
+  </section>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <span class="divider-label">All Series</span>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="series-grid">
+    <a class="series-card" href="series-001.html">
+      <div class="card-eyebrow">Series 001 &nbsp;·&nbsp; 4 Parts</div>
+      <div class="card-title">I Can Repair the World, But They Won't Give Me the Source Code</div>
+      <p class="card-desc">The world's problems are not unsolvable — they are inaccessible. A four-part series on broken
+        systems, the people who build around them, who gets left out, and the honest cost of change.</p>
+      <div class="card-footer">
+        <div class="card-parts">
+          <div class="card-part-dot filled"></div>
+          <div class="card-part-dot filled"></div>
+          <div class="card-part-dot filled"></div>
+          <div class="card-part-dot filled"></div>
+        </div>
+        <span class="card-cta">Read series</span>
       </div>
-      <span class="coming-tag">In progress</span>
+    </a>
+
+    <div class="series-card coming-soon">
+      <div class="card-eyebrow">Series 002 &nbsp;·&nbsp; Coming Soon</div>
+      <div class="card-title">More thinking on the way.</div>
+      <p class="card-desc">The next series is being written. Check back soon.</p>
+      <div class="card-footer">
+        <div class="card-parts">
+          <div class="card-part-dot"></div>
+          <div class="card-part-dot"></div>
+          <div class="card-part-dot"></div>
+          <div class="card-part-dot"></div>
+        </div>
+        <span class="coming-tag">In progress</span>
+      </div>
     </div>
   </div>
-</div>
 
-<footer>
-  <span class="footer-logo">// Re:Think</span>
-  <span class="footer-copy">© 2026 · Question the defaults.</span>
-</footer>
+  <footer>
+    <span class="footer-logo">// Re:Think</span>
+    <span class="footer-copy">© 2026 · Question the defaults.</span>
+  </footer>
 
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
+
 </html>
