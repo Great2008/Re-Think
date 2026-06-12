@@ -379,10 +379,21 @@ footer {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ── COMING SOON POSTS ── */
+.coming-soon-post {
+  opacity: 0.4;
+  pointer-events: none;
+  cursor: default;
+}
+.coming-soon-post .post-tag {
+  font-style: italic;
+  letter-spacing: 0.05em;
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 680px) {
   .nav-links { display: none; }
-header .theme-btn { display: none; }
+  header .theme-btn { display: none; }
   .hamburger { display: flex; }
   header { padding: 0 1.25rem; }
   .hero { padding: 3rem 1.25rem 2.5rem; }
