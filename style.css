@@ -381,7 +381,8 @@ footer {
 
 /* ── RESPONSIVE ── */
 @media (max-width: 680px) {
-  .nav-links, .theme-btn { display: none; }
+  .nav-links { display: none; }
+header .theme-btn { display: none; }
   .hamburger { display: flex; }
   header { padding: 0 1.25rem; }
   .hero { padding: 3rem 1.25rem 2.5rem; }
