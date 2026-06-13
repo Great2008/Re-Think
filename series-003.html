@@ -53,29 +53,31 @@
   <header>
     <a class="logo" href="index.html"><img class="logo-dark" src="logo.svg" alt="Re:Think" /><img class="logo-light-img" src="logo-light.svg" alt="Re:Think" /></a>
     <div class="header-right">
-      <ul class="nav-links">
+      <ul class="nav-links" role="list">
         <li><a href="index.html">Home</a></li>
         <li><a href="series-001.html">Series 001</a></li>
         <li><a href="series-002.html">Series 002</a></li>
-        <li><a href="series-003.html" class="active">Series 003</a></li>
+        <li><a href="series-003.html">Series 003</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul>
-      <button class="theme-btn" onclick="toggleTheme()">
+      <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
         <span class="theme-icon">☀</span><span class="theme-label">Light</span>
       </button>
-      <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Open navigation menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
   </header>
 
-  <nav class="mobile-menu" id="mobileMenu">
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
     <a class="mobile-nav-link" href="index.html" onclick="closeMenu()">Home <span>Start here</span></a>
     <a class="mobile-nav-link" href="series-001.html" onclick="closeMenu()">Series 001 <span>4 Parts</span></a>
     <a class="mobile-nav-link" href="series-002.html" onclick="closeMenu()">Series 002 <span>4 Parts</span></a>
     <a class="mobile-nav-link" href="series-003.html" onclick="closeMenu()">Series 003 <span>4 Parts</span></a>
     <div class="mobile-theme-row">
       <span class="mobile-theme-label">Theme</span>
-      <button class="theme-btn" onclick="toggleTheme()">
+      <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
         <span class="theme-icon">☀</span><span class="theme-label">Light</span>
       </button>
     </div>
@@ -170,15 +172,21 @@
   </footer>
 
   <!-- MODAL -->
-  <div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal" id="modal">
-      <button class="modal-close" onclick="closePost()">✕ close</button>
+      <button class="modal-close" onclick="closePost()" id="modalCloseBtn" aria-label="Close article">✕ close</button>
       <div class="modal-header">
         <div class="modal-series-label" id="modalPart"></div>
         <div class="modal-title" id="modalTitle"></div>
         <div class="modal-meta" id="modalMeta"></div>
       </div>
       <div class="modal-body" id="modalBody"></div>
+      <div class="share-row">
+        <span class="share-label">Share</span>
+        <a class="share-btn" id="shareWhatsApp" href="#" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        <a class="share-btn" id="shareX" href="#" target="_blank" rel="noopener noreferrer">𝕏</a>
+        <a class="share-btn" id="shareLinkedIn" href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
       <div class="modal-nav">
         <button class="modal-nav-btn" id="prevBtn" onclick="navigatePost(-1)">← Prev</button>
         <span class="modal-nav-count" id="navCount"></span>
@@ -326,6 +334,9 @@
     </div>
 
   </div><!-- /hidden post data -->
+
+  <!-- Umami Analytics -->
+  <script async src="https://analytics.umami.is/script.js" data-website-id="YOUR_UMAMI_SITE_ID"></script>
 
   <script src="script.js"></script>
 </body>

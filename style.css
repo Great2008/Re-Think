@@ -412,3 +412,192 @@ footer {
   .modal-header, .modal-body, .modal-nav { padding: 1.5rem; }
   footer { flex-direction: column; gap: 0.5rem; align-items: flex-start; padding: 1.5rem 1.25rem; }
 }
+
+/* ── ABOUT PAGE ── */
+.about-body {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 4rem;
+}
+
+.about-section {
+  margin-bottom: 2.5rem;
+}
+
+.about-section p {
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--text-body);
+  margin-bottom: 1rem;
+}
+
+.about-label {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  margin-bottom: 0.85rem;
+  text-transform: uppercase;
+}
+
+.about-section strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.about-cta-row {
+  display: flex;
+  gap: 1rem;
+  margin-top: 3rem;
+  flex-wrap: wrap;
+}
+
+.about-cta-btn {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.7rem 1.4rem;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.about-cta-btn:hover {
+  background: var(--accent);
+  color: #0d0d0d;
+}
+
+.about-cta-btn.secondary {
+  border-color: var(--border2);
+  color: var(--text-muted);
+}
+
+.about-cta-btn.secondary:hover {
+  background: var(--border2);
+  color: var(--text);
+}
+
+/* ── CONTACT PAGE ── */
+.contact-body {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 4rem;
+}
+
+.contact-intro {
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--text-body);
+  margin-bottom: 2.5rem;
+}
+
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 3rem;
+}
+
+.contact-card {
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  text-decoration: none;
+  display: block;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.contact-card:hover {
+  border-color: var(--accent);
+  background: var(--surface);
+}
+
+.contact-card-icon {
+  font-size: 1.4rem;
+  margin-bottom: 0.75rem;
+  color: var(--accent);
+}
+
+.contact-card-label {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.4rem;
+}
+
+.contact-card-value {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--text);
+  margin-bottom: 0.75rem;
+  word-break: break-all;
+}
+
+.contact-card-note {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.contact-note {
+  border-left: 2px solid var(--border);
+  padding-left: 1.5rem;
+  margin-top: 2rem;
+}
+
+.contact-note p {
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+}
+
+/* ── SHARE BUTTONS ── */
+.share-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1.25rem 2.5rem;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.share-label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-right: 0.25rem;
+}
+
+.share-btn {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid var(--border2);
+  color: var(--text-muted);
+  background: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.share-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+@media (max-width: 680px) {
+  .share-row { padding: 1rem 1.5rem; }
+  .about-body, .contact-body { padding: 2rem 1.25rem 3rem; }
+  .contact-cards { grid-template-columns: 1fr; }
+}

@@ -9,6 +9,20 @@
   </url>
 
   <url>
+    <loc>https://rethink-beta.vercel.app/about.html</loc>
+    <lastmod>2026-06-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://rethink-beta.vercel.app/contact.html</loc>
+    <lastmod>2026-06-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
     <loc>https://rethink-beta.vercel.app/series-001.html</loc>
     <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>

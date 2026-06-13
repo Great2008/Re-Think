@@ -15,14 +15,24 @@ function toggleTheme() {
 
 // ── MOBILE MENU ──
 function toggleMenu() {
-  const open = document.getElementById('mobileMenu').classList.toggle('open');
-  document.getElementById('hamburger').classList.toggle('open', open);
+  const menu = document.getElementById('mobileMenu');
+  const burger = document.getElementById('hamburger');
+  if (!menu) return;
+  const open = menu.classList.toggle('open');
+  burger.classList.toggle('open', open);
+  burger.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+  burger.setAttribute('aria-expanded', open);
   document.body.style.overflow = open ? 'hidden' : '';
 }
 
 function closeMenu() {
-  document.getElementById('mobileMenu').classList.remove('open');
-  document.getElementById('hamburger').classList.remove('open');
+  const menu = document.getElementById('mobileMenu');
+  const burger = document.getElementById('hamburger');
+  if (!menu) return;
+  menu.classList.remove('open');
+  burger.classList.remove('open');
+  burger.setAttribute('aria-label', 'Open navigation menu');
+  burger.setAttribute('aria-expanded', false);
   document.body.style.overflow = '';
 }
 
@@ -37,21 +47,38 @@ function initPosts() {
 function openPost(index) {
   currentPost = index;
   renderModal();
-  document.getElementById('modalOverlay').classList.add('open');
+  const overlay = document.getElementById('modalOverlay');
+  overlay.classList.add('open');
+  overlay.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
-  document.getElementById('modalOverlay').scrollTop = 0;
+  overlay.scrollTop = 0;
+  document.getElementById('modalCloseBtn').focus();
 }
 
 function renderModal() {
   const el = allPosts[currentPost];
-  document.getElementById('modalPart').textContent = el.dataset.part;
-  document.getElementById('modalTitle').textContent = el.dataset.title;
+  const title = el.dataset.title;
+  const part = el.dataset.part;
+  const url = encodeURIComponent(window.location.href);
+  const text = encodeURIComponent(`"${title}" — Re:Think`);
+
+  document.getElementById('modalPart').textContent = part;
+  document.getElementById('modalTitle').textContent = title;
   document.getElementById('modalMeta').innerHTML =
     `<span>${el.dataset.date}</span><span>${el.dataset.read}</span>`;
   document.getElementById('modalBody').innerHTML = el.innerHTML;
   document.getElementById('navCount').textContent = `${currentPost + 1} of ${allPosts.length}`;
   document.getElementById('prevBtn').disabled = currentPost === 0;
   document.getElementById('nextBtn').disabled = currentPost === allPosts.length - 1;
+
+  // Share buttons
+  document.getElementById('shareWhatsApp').href =
+    `https://wa.me/?text=${text}%20${url}`;
+  document.getElementById('shareX').href =
+    `https://x.com/intent/tweet?text=${text}&url=${url}`;
+  document.getElementById('shareLinkedIn').href =
+    `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+
   document.getElementById('modalOverlay').scrollTop = 0;
 }
 
@@ -61,7 +88,9 @@ function navigatePost(dir) {
 }
 
 function closePost() {
-  document.getElementById('modalOverlay').classList.remove('open');
+  const overlay = document.getElementById('modalOverlay');
+  overlay.classList.remove('open');
+  overlay.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
 }
 
@@ -70,7 +99,8 @@ function handleOverlayClick(e) {
 }
 
 document.addEventListener('keydown', e => {
-  if (!document.getElementById('modalOverlay')) return;
+  const overlay = document.getElementById('modalOverlay');
+  if (!overlay || !overlay.classList.contains('open')) return;
   if (e.key === 'Escape') closePost();
   if (e.key === 'ArrowRight') navigatePost(1);
   if (e.key === 'ArrowLeft') navigatePost(-1);

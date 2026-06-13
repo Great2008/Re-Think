@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Re:Think</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Get in touch with Re:Think. For questions, collaborations, or to share your thoughts on the work." />
+  <meta name="author" content="Aakor-okara Greatname" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://rethink-beta.vercel.app/contact.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Re:Think" />
+  <meta property="og:title" content="Contact — Re:Think" />
+  <meta property="og:description" content="Get in touch with Re:Think." />
+  <meta property="og:url" content="https://rethink-beta.vercel.app/contact.html" />
+  <meta property="og:image" content="https://rethink-beta.vercel.app/og.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Contact — Re:Think" />
+  <meta name="twitter:description" content="Get in touch with Re:Think." />
+  <meta name="twitter:image" content="https://rethink-beta.vercel.app/og.png" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script>(function(){var t=localStorage.getItem('rt-theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+</head>
+
+<body>
+
+  <header>
+    <a class="logo" href="index.html">
+      <img class="logo-dark" src="logo.svg" alt="Re:Think" />
+      <img class="logo-light-img" src="logo-light.svg" alt="Re:Think" />
+    </a>
+    <div class="header-right">
+      <ul class="nav-links" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="series-001.html">Series 001</a></li>
+        <li><a href="series-002.html">Series 002</a></li>
+        <li><a href="series-003.html">Series 003</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+      <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+        <span class="theme-icon">☀</span><span class="theme-label">Light</span>
+      </button>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Open navigation menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+    <a class="mobile-nav-link" href="index.html" onclick="closeMenu()">Home <span>Start here</span></a>
+    <a class="mobile-nav-link" href="series-001.html" onclick="closeMenu()">Series 001 <span>4 Parts</span></a>
+    <a class="mobile-nav-link" href="series-002.html" onclick="closeMenu()">Series 002 <span>4 Parts</span></a>
+    <a class="mobile-nav-link" href="series-003.html" onclick="closeMenu()">Series 003 <span>4 Parts</span></a>
+    <a class="mobile-nav-link" href="about.html" onclick="closeMenu()">About <span>The publication</span></a>
+    <a class="mobile-nav-link" href="contact.html" onclick="closeMenu()">Contact <span>Get in touch</span></a>
+    <div class="mobile-theme-row">
+      <span class="mobile-theme-label">Theme</span>
+      <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+        <span class="theme-icon">☀</span><span class="theme-label">Light</span>
+      </button>
+    </div>
+  </nav>
+
+  <section class="series-hero">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span class="breadcrumb-sep">/</span>
+      <span>Contact</span>
+    </div>
+    <div class="series-hero-label">Get in Touch</div>
+    <h1>Say Something</h1>
+    <p class="series-hero-desc">
+      Responses, disagreements, questions, collaborations. All welcome.
+    </p>
+  </section>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <span class="divider-label">Channels</span>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="contact-body">
+
+    <p class="contact-intro">Re:Think is written by one person. Messages go directly to that person. No team, no assistant, no auto-reply. Expect a response — just not immediately.</p>
+
+    <div class="contact-cards">
+
+      <a class="contact-card" href="mailto:aakorokaragreatname@gmail.com">
+        <div class="contact-card-icon">✉</div>
+        <div class="contact-card-label">// Email</div>
+        <div class="contact-card-value">aakorokaragreatname@gmail.com</div>
+        <div class="contact-card-note">Best for long-form thoughts, collaborations, or anything that needs more than 280 characters.</div>
+      </a>
+
+      <a class="contact-card" href="https://x.com/AakorOkara45911" target="_blank" rel="noopener noreferrer">
+        <div class="contact-card-icon">𝕏</div>
+        <div class="contact-card-label">// X (Twitter)</div>
+        <div class="contact-card-value">@AakorOkara45911</div>
+        <div class="contact-card-note">For quick reactions, debates, or sharing something you found in the essays.</div>
+      </a>
+
+      <a class="contact-card" href="https://www.linkedin.com/in/greatname-aakor-okara-b13669416" target="_blank" rel="noopener noreferrer">
+        <div class="contact-card-icon">in</div>
+        <div class="contact-card-label">// LinkedIn</div>
+        <div class="contact-card-value">Greatname Aakor-okara</div>
+        <div class="contact-card-note">For professional inquiries, speaking, or if you want to connect in a more formal context.</div>
+      </a>
+
+    </div>
+
+    <div class="contact-note">
+      <div class="about-label">// A note on responses</div>
+      <p>If you disagree with something written here, say so specifically. Vague disapproval is easy to send and impossible to engage with. The work is meant to provoke thought — if it provoked yours, that is worth a real conversation.</p>
+    </div>
+
+  </div>
+
+  <footer>
+    <span class="footer-logo">// Re:Think_</span>
+    <span class="footer-copy">© 2026 · Question the defaults.</span>
+  </footer>
+
+  <!-- Umami Analytics -->
+  <script async src="https://analytics.umami.is/script.js" data-website-id="YOUR_UMAMI_SITE_ID"></script>
+
+  <script src="script.js"></script>
+</body>
+</html>
