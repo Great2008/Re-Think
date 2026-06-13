@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rethink-beta.vercel.app/sitemap.xml
