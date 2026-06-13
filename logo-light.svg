@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 40" fill="none">
+  <text x="0" y="28" font-family="'DM Mono', 'Courier New', monospace" font-size="22" font-weight="400" fill="#C9A84C" letter-spacing="1">//</text>
+  <text x="38" y="28" font-family="'Playfair Display', Georgia, serif" font-size="20" font-weight="700" fill="#1a1a1a" letter-spacing="0.5">Re:Think</text>
+  <rect x="141" y="30" width="10" height="2.5" fill="#C9A84C" rx="1">
+    <animate attributeName="opacity" values="1;0;1" dur="1.2s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="0" y="37" width="96" height="1" fill="#C9A84C" opacity="0.5" rx="0.5"/>
+</svg>

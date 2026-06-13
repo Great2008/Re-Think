@@ -49,11 +49,19 @@ header {
 }
 
 .logo {
-  font-family: var(--mono); font-size: 1.05rem;
-  letter-spacing: 0.08em; color: var(--accent);
-  text-decoration: none; display: flex; align-items: center; gap: 0.4rem;
+  text-decoration: none; display: flex; align-items: center;
+  flex-shrink: 0;
 }
-.logo::before { content: '//'; color: var(--text-muted); font-size: 0.8rem; }
+.logo img {
+  height: 32px; width: auto;
+  transition: opacity 0.2s;
+}
+.logo:hover img { opacity: 0.85; }
+.logo .logo-dark { display: block; }
+.logo .logo-light-img { display: none; }
+[data-theme="light"] .logo .logo-dark { display: none; }
+[data-theme="light"] .logo .logo-light-img { display: block; }
+
 
 .header-right { display: flex; align-items: center; gap: 1.25rem; }
 
