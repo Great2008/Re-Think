@@ -1,0 +1,8 @@
+{
+  "name": "rethink-blog",
+  "version": "1.0.0",
+  "description": "Re:Think blog",
+  "dependencies": {
+    "nodemailer": "^6.9.9"
+  }
+}

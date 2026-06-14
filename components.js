@@ -61,6 +61,20 @@ function injectNav() {
 // ── INJECT FOOTER ──
 function injectFooter() {
   const footer = `
+  <div class="newsletter-bar">
+    <div class="newsletter-inner">
+      <div class="newsletter-text">
+        <span class="newsletter-label">// Stay in the loop</span>
+        <p>New series and essays, when the work is ready. No filler.</p>
+      </div>
+      <div class="newsletter-form-wrap">
+        <input id="nl-email" class="nl-input" type="email"
+          placeholder="your@email.com" autocomplete="email" />
+        <button class="nl-btn" onclick="submitNewsletter()">Subscribe</button>
+      </div>
+      <p id="nl-status" class="nl-status"></p>
+    </div>
+  </div>
   <footer>
     <span class="footer-logo">// Re:Think_</span>
     <span class="footer-copy">© 2026 · Question the defaults.</span>
@@ -68,6 +82,52 @@ function injectFooter() {
 
   const mount = document.getElementById('rt-footer');
   if (mount) mount.outerHTML = footer;
+}
+
+// ── NEWSLETTER SUBMIT ──
+async function submitNewsletter() {
+  const emailEl = document.getElementById('nl-email');
+  const statusEl = document.getElementById('nl-status');
+  const btn = document.querySelector('.nl-btn');
+  const email = emailEl.value.trim();
+
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    statusEl.textContent = 'Please enter a valid email.';
+    statusEl.className = 'nl-status error';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Subscribing...';
+  statusEl.textContent = '';
+
+  try {
+    const res = await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+
+    const data = await res.json();
+
+    if (res.status === 409) {
+      statusEl.textContent = 'You\'re already subscribed.';
+      statusEl.className = 'nl-status info';
+    } else if (res.ok) {
+      emailEl.value = '';
+      statusEl.textContent = 'You\'re in. Check your inbox.';
+      statusEl.className = 'nl-status success';
+    } else {
+      statusEl.textContent = data.error || 'Something went wrong. Try again.';
+      statusEl.className = 'nl-status error';
+    }
+  } catch (e) {
+    statusEl.textContent = 'Network error. Try again.';
+    statusEl.className = 'nl-status error';
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Subscribe';
 }
 
 // ── COMMENTS SYSTEM ──
