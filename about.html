@@ -43,44 +43,8 @@
 </head>
 
 <body>
+  <div id="rt-nav"></div>
 
-  <header>
-    <a class="logo" href="index.html">
-      <img class="logo-dark" src="logo.svg" alt="Re:Think" />
-      <img class="logo-light-img" src="logo-light.svg" alt="Re:Think" />
-    </a>
-    <div class="header-right">
-      <ul class="nav-links" role="list">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="series-001.html">Series 001</a></li>
-        <li><a href="series-002.html">Series 002</a></li>
-        <li><a href="series-003.html">Series 003</a></li>
-        <li><a href="about.html" class="active">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-      <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
-        <span class="theme-icon">☀</span><span class="theme-label">Light</span>
-      </button>
-      <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Open navigation menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </header>
-
-  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
-    <a class="mobile-nav-link" href="index.html" onclick="closeMenu()">Home <span>Start here</span></a>
-    <a class="mobile-nav-link" href="series-001.html" onclick="closeMenu()">Series 001 <span>4 Parts</span></a>
-    <a class="mobile-nav-link" href="series-002.html" onclick="closeMenu()">Series 002 <span>4 Parts</span></a>
-    <a class="mobile-nav-link" href="series-003.html" onclick="closeMenu()">Series 003 <span>4 Parts</span></a>
-    <a class="mobile-nav-link" href="about.html" onclick="closeMenu()">About <span>The publication</span></a>
-    <a class="mobile-nav-link" href="contact.html" onclick="closeMenu()">Contact <span>Get in touch</span></a>
-    <div class="mobile-theme-row">
-      <span class="mobile-theme-label">Theme</span>
-      <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
-        <span class="theme-icon">☀</span><span class="theme-label">Light</span>
-      </button>
-    </div>
-  </nav>
 
   <section class="series-hero">
     <div class="breadcrumb">
@@ -123,7 +87,7 @@
 
     <div class="about-section">
       <div class="about-label">// Who is writing this</div>
-      <p>Re:Think is written by <strong>Aakor-okara Greatname</strong>, also known as <i>Gemini_man</i> — a writer, developer, and systems thinker based in Nigeria. The publication is independent. It has no sponsors, no advertisers, and no agenda beyond the work.</p>
+      <p>Re:Think is written by <strong>Aakor-okara Greatname</strong>, also known as Gemini_man — a writer, developer, and systems thinker based in Nigeria. The publication is independent. It has no sponsors, no advertisers, and no agenda beyond the work.</p>
     </div>
 
     <div class="about-section">
@@ -139,15 +103,13 @@
     </div>
 
   </div>
+  <div id="rt-footer"></div>
 
-  <footer>
-    <span class="footer-logo">// Re:Think_</span>
-    <span class="footer-copy">© 2026 · Question the defaults.</span>
-  </footer>
 
   <!-- Umami Analytics -->
   <script async src="https://analytics.umami.is/script.js" data-website-id="YOUR_UMAMI_SITE_ID"></script>
 
+  <script src="components.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

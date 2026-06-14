@@ -49,39 +49,8 @@
 </head>
 
 <body>
+  <div id="rt-nav"></div>
 
-  <header>
-    <a class="logo" href="index.html"><img class="logo-dark" src="logo.svg" alt="Re:Think" /><img class="logo-light-img" src="logo-light.svg" alt="Re:Think" /></a>
-    <div class="header-right">
-      <ul class="nav-links" role="list">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="series-001.html">Series 001</a></li>
-        <li><a href="series-002.html" class="active">Series 002</a></li>
-        <li><a href="series-003.html">Series 003</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-      <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
-        <span class="theme-icon">☀</span><span class="theme-label">Light</span>
-      </button>
-      <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Open navigation menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </header>
-
-  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
-    <a class="mobile-nav-link" href="index.html" onclick="closeMenu()">Home <span>Start here</span></a>
-    <a class="mobile-nav-link" href="series-001.html" onclick="closeMenu()">Series 001 <span>4 Parts</span></a>
-    <a class="mobile-nav-link" href="series-002.html" onclick="closeMenu()">Series 002 <span>4 Parts</span></a>
-    <a class="mobile-nav-link" href="series-003.html" onclick="closeMenu()">Series 003 <span>4 Parts</span></a>
-    <div class="mobile-theme-row">
-      <span class="mobile-theme-label">Theme</span>
-      <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
-        <span class="theme-icon">☀</span><span class="theme-label">Light</span>
-      </button>
-    </div>
-  </nav>
 
   <section class="series-hero">
     <div class="breadcrumb">
@@ -165,11 +134,10 @@
     </a>
 
   </div><!-- /.posts -->
+  <div id="rt-comments"></div>
 
-  <footer>
-    <span class="footer-logo">// Re:Think_</span>
-    <span class="footer-copy">© 2026 · Question the defaults.</span>
-  </footer>
+  <div id="rt-footer"></div>
+
 
   <!-- MODAL -->
   <div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
@@ -328,6 +296,8 @@
   <!-- Umami Analytics -->
   <script async src="https://analytics.umami.is/script.js" data-website-id="YOUR_UMAMI_SITE_ID"></script>
 
+  <script>document.addEventListener("DOMContentLoaded",()=>injectComments("series-002"));</script>
+  <script src="components.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

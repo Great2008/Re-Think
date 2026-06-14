@@ -49,39 +49,8 @@
 </head>
 
 <body>
+  <div id="rt-nav"></div>
 
-  <header>
-    <a class="logo" href="index.html"><img class="logo-dark" src="logo.svg" alt="Re:Think" /><img class="logo-light-img" src="logo-light.svg" alt="Re:Think" /></a>
-    <div class="header-right">
-      <ul class="nav-links" role="list">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="series-001.html">Series 001</a></li>
-        <li><a href="series-002.html">Series 002</a></li>
-        <li><a href="series-003.html">Series 003</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-      <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
-        <span class="theme-icon">☀</span><span class="theme-label">Light</span>
-      </button>
-      <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Open navigation menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </header>
-
-  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
-    <a class="mobile-nav-link" href="index.html" onclick="closeMenu()">Home <span>Start here</span></a>
-    <a class="mobile-nav-link" href="series-001.html" onclick="closeMenu()">Series 001 <span>4 Parts</span></a>
-    <a class="mobile-nav-link" href="series-002.html" onclick="closeMenu()">Series 002 <span>4 Parts</span></a>
-    <a class="mobile-nav-link" href="series-003.html" onclick="closeMenu()">Series 003 <span>4 Parts</span></a>
-    <div class="mobile-theme-row">
-      <span class="mobile-theme-label">Theme</span>
-      <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
-        <span class="theme-icon">☀</span><span class="theme-label">Light</span>
-      </button>
-    </div>
-  </nav>
 
   <section class="series-hero">
     <div class="breadcrumb">
@@ -165,11 +134,10 @@
     </a>
 
   </div><!-- /.posts -->
+  <div id="rt-comments"></div>
 
-  <footer>
-    <span class="footer-logo">// Re:Think_</span>
-    <span class="footer-copy">© 2026 · Question the defaults.</span>
-  </footer>
+  <div id="rt-footer"></div>
+
 
   <!-- MODAL -->
   <div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
@@ -259,7 +227,7 @@
       <p>It will not always be there. It is exhaustible. And it is being exhausted.</p>
       <hr/>
       <p>The young women who watched their mothers give everything to the community are making different calculations. They are moving to cities. They are building careers. They are choosing, rationally, not to inherit the role of unpaid infrastructure.</p>
-      <p><em>This is not a betrayal. It is a correction.</em></p>
+      <p>This is not a betrayal. It is a correction.</p>
       <p>But the correction is arriving before any formal system has been built to replace what the informal system provided. The load-bearing wall is being removed. Nobody has put up a column.</p>
       <p>The infrastructure crisis coming to African communities is not about roads or electricity, though those matter. It is about the collapse of the unpaid systems that have always compensated for the failure of formal ones. And it is arriving quietly, without a budget line or a policy response, because the system it is replacing was never officially counted in the first place.</p>
     </div>
@@ -338,6 +306,8 @@
   <!-- Umami Analytics -->
   <script async src="https://analytics.umami.is/script.js" data-website-id="YOUR_UMAMI_SITE_ID"></script>
 
+  <script>document.addEventListener("DOMContentLoaded",()=>injectComments("series-003"));</script>
+  <script src="components.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
