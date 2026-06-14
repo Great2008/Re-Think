@@ -194,10 +194,20 @@ function formatDate(iso) {
   });
 }
 
+// ── ANALYTICS ──
+function injectAnalytics() {
+  const s = document.createElement('script');
+  s.defer = true;
+  s.src = 'https://cloud.umami.is/script.js';
+  s.setAttribute('data-website-id', 'e10d7e11-0cc0-4170-8c1f-72faf9a78101');
+  document.head.appendChild(s);
+}
+
 // ── INIT ──
 document.addEventListener('DOMContentLoaded', () => {
   injectNav();
   injectFooter();
+  injectAnalytics();
   // Re-apply theme after nav injection so icons update
   const t = localStorage.getItem('rt-theme') || 'dark';
   if (typeof applyTheme === 'function') applyTheme(t);
