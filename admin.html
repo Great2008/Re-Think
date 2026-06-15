@@ -717,13 +717,39 @@ let editingPostId = null;
 let allSeries = [];
 
 // ── LOCK / UNLOCK ──
-function unlock() {
+async function unlock() {
   const pw = document.getElementById('lockPassword').value.trim();
-  if (!pw) return;
-  adminPassword = pw;
-  document.getElementById('lockScreen').style.display = 'none';
-  document.getElementById('adminShell').style.display = 'block';
-  loadAll();
+  const errEl = document.getElementById('lockError');
+  const btn = document.querySelector('.lock-btn');
+  if (!pw) { errEl.textContent = 'Enter your password.'; return; }
+
+  btn.disabled = true;
+  btn.textContent = 'Checking...';
+  errEl.textContent = '';
+
+  try {
+    const res = await fetch('/api/auth', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: pw })
+    });
+
+    if (res.ok) {
+      adminPassword = pw;
+      document.getElementById('lockScreen').style.display = 'none';
+      document.getElementById('adminShell').style.display = 'block';
+      loadAll();
+    } else {
+      errEl.textContent = 'Wrong password.';
+      document.getElementById('lockPassword').value = '';
+      document.getElementById('lockPassword').focus();
+    }
+  } catch (e) {
+    errEl.textContent = 'Network error. Try again.';
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Enter';
 }
 
 function logout() {
