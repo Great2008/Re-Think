@@ -63,9 +63,10 @@ header {
 [data-theme="light"] .logo .logo-light-img { display: block; }
 
 
-.header-right { display: flex; align-items: center; gap: 1.25rem; }
+.header-right { display: flex; align-items: center; gap: 1.25rem; min-width: 0; overflow: hidden; }
 
-.nav-links { display: flex; align-items: center; gap: 0.1rem; list-style: none; }
+.nav-links { display: flex; align-items: center; gap: 0.1rem; list-style: none; overflow-x: auto; scrollbar-width: none; flex-shrink: 1; }
+.nav-links::-webkit-scrollbar { display: none; }
 .nav-links a {
   font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em;
   text-transform: uppercase; color: var(--text-muted);
@@ -101,6 +102,8 @@ header {
   display: flex; flex-direction: column; padding: 3rem 2rem; gap: 0;
   transform: translateX(100%);
   transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), background 0.3s;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .mobile-menu.open { transform: translateX(0); }
 
