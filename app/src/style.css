@@ -1015,8 +1015,7 @@ footer {
     .admin-logout:hover { color: #e05555; }
 
     /* Panels */
-    .admin-panel { display: none; padding: 2rem; max-width: 1100px; margin: 0 auto; }
-    .admin-panel.active { display: block; }
+    .admin-panel { display: block; padding: 2rem; max-width: 1100px; margin: 0 auto; }
 
     /* Stats bar */
     .stats-row {
@@ -1304,9 +1303,8 @@ footer {
       padding: 1.5rem;
       background: var(--surface);
       margin-top: 1.5rem;
-      display: none;
+      display: block;
     }
-    .new-series-form.open { display: block; }
     .new-series-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem; }
 
     /* Subscribers panel */
