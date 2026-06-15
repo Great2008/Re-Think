@@ -100,7 +100,7 @@ module.exports = async (req, res) => {
         <tr><td style="padding-top:32px;border-top:1px solid #2a2a2a;">
           <p style="margin:0;font-family:'Courier New',monospace;font-size:11px;color:#444;letter-spacing:1px;">
             © 2026 Re:Think · Question the defaults.<br/>
-            You subscribed at rethink-beta.vercel.app
+            You subscribed at re-think-beta.vercel.app
           </p>
         </td></tr>
 
