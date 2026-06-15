@@ -13,9 +13,10 @@ const sbHeaders = {
 };
 
 async function sb(path, opts = {}) {
+  const { headers: extraHeaders, ...restOpts } = opts;
   const res = await fetch(`${SB_URL}/rest/v1/${path}`, {
-    headers: { ...sbHeaders, ...opts.headers },
-    ...opts,
+    ...restOpts,
+    headers: { ...sbHeaders, ...extraHeaders },
   });
   if (!res.ok && res.status !== 409) {
     const t = await res.text();
