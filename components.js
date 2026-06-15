@@ -23,9 +23,9 @@ function injectNav() {
     <div class="header-right">
       <ul class="nav-links" role="list">
         <li><a href="index.html" ${active === 'index.html' || active === '' ? 'class="active"' : ''}>Home</a></li>
-        <li><a href="series-001.html" ${active === 'series-001.html' ? 'class="active"' : ''}>Series 001</a></li>
-        <li><a href="series-002.html" ${active === 'series-002.html' ? 'class="active"' : ''}>Series 002</a></li>
-        <li><a href="series-003.html" ${active === 'series-003.html' ? 'class="active"' : ''}>Series 003</a></li>
+        <li><a href="series.html?id=series-001" ${active === 'series.html' && window.location.search.includes('series-001') ? 'class="active"' : ''}>Series 001</a></li>
+        <li><a href="series.html?id=series-002" ${active === 'series.html' && window.location.search.includes('series-002') ? 'class="active"' : ''}>Series 002</a></li>
+        <li><a href="series.html?id=series-003" ${active === 'series.html' && window.location.search.includes('series-003') ? 'class="active"' : ''}>Series 003</a></li>
         <li><a href="about.html" ${active === 'about.html' ? 'class="active"' : ''}>About</a></li>
         <li><a href="contact.html" ${active === 'contact.html' ? 'class="active"' : ''}>Contact</a></li>
       </ul>
@@ -41,9 +41,9 @@ function injectNav() {
 
   <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
     <a class="mobile-nav-link" href="index.html" onclick="closeMenu()">Home <span>Start here</span></a>
-    <a class="mobile-nav-link" href="series-001.html" onclick="closeMenu()">Series 001 <span>4 Parts</span></a>
-    <a class="mobile-nav-link" href="series-002.html" onclick="closeMenu()">Series 002 <span>4 Parts</span></a>
-    <a class="mobile-nav-link" href="series-003.html" onclick="closeMenu()">Series 003 <span>4 Parts</span></a>
+    <a class="mobile-nav-link" href="series.html?id=series-001" onclick="closeMenu()">Series 001 <span>4 Parts</span></a>
+    <a class="mobile-nav-link" href="series.html?id=series-002" onclick="closeMenu()">Series 002 <span>4 Parts</span></a>
+    <a class="mobile-nav-link" href="series.html?id=series-003" onclick="closeMenu()">Series 003 <span>4 Parts</span></a>
     <a class="mobile-nav-link" href="about.html" onclick="closeMenu()">About <span>The publication</span></a>
     <a class="mobile-nav-link" href="contact.html" onclick="closeMenu()">Contact <span>Get in touch</span></a>
     <div class="mobile-theme-row">

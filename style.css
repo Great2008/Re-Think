@@ -823,3 +823,57 @@ footer {
   .nl-input { min-width: 100%; }
   .nl-btn { width: 100%; }
 }
+
+/* ── SERIES LOADING / ERROR ── */
+.series-loading {
+  display: flex;
+  justify-content: center;
+  padding: 5rem 2rem;
+}
+
+.series-loading-text {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+}
+
+.series-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 5rem 2rem;
+}
+
+.series-error-link {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+/* markdown rendered in modal */
+.modal-body h1, .modal-body h2, .modal-body h3 {
+  font-family: var(--serif);
+  color: var(--text);
+  margin: 1.5rem 0 0.75rem;
+}
+
+.modal-body p { margin-bottom: 1.1rem; }
+.modal-body hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 1.75rem 0;
+}
+.modal-body em { font-style: italic; }
+.modal-body strong { font-weight: 700; color: var(--text); }
+.modal-body blockquote {
+  border-left: 2px solid var(--accent);
+  padding-left: 1rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin: 1.5rem 0;
+}
