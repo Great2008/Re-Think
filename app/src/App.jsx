@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
-import { ThemeProvider } from './lib/theme.js';
+import { ThemeProvider } from './lib/theme.jsx';
 import Nav from './components/Nav.jsx';
 import Footer from './components/Footer.jsx';
 import Home from './pages/Home.jsx';

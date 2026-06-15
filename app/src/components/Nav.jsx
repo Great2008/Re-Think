@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useTheme } from '../lib/theme.js';
+import { useTheme } from '../lib/theme.jsx';
 import logoDark from '../assets/logo.svg';
 import logoLight from '../assets/logo-light.svg';
 
