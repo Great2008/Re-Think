@@ -27,6 +27,6 @@ module.exports = async (req, res) => {
   }
 
   // Redirect to a simple confirmation page
-  res.setHeader('Location', 'https://rethink-beta.vercel.app/unsubscribed.html');
+  res.setHeader('Location', 'https://re-think-beta.vercel.app/unsubscribed.html');
   return res.status(302).end();
 };
