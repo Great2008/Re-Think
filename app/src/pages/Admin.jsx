@@ -425,7 +425,7 @@ function Subscribers() {
 }
 
 // ── NEWSLETTER ─────────────────────────────────────────
-function Newsletter() {
+function Newsletter({ adminPw }) {
   const [subject, setSubject] = useState('');
   const [body, setBody] = useState('');
   const [status, setStatus] = useState('');
@@ -444,7 +444,7 @@ function Newsletter() {
       const res = await fetch('/api/broadcast', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ subject, body }),
+        body: JSON.stringify({ password: adminPw, subject, body }),
       });
       const data = await res.json();
       if (res.ok) {
@@ -500,6 +500,7 @@ const TAB_LABELS = ['Dashboard', 'Write', 'Series', 'Subscribers', 'Newsletter']
 
 export default function Admin() {
   const [authed, setAuthed] = useState(false);
+  const [adminPw, setAdminPw] = useState('');
   const [tab, setTab] = useState('dashboard');
   const [allSeries, setAllSeries] = useState([]);
 
@@ -516,7 +517,7 @@ export default function Admin() {
     }
   }
 
-  if (!authed) return <LockScreen onUnlock={() => setAuthed(true)} />;
+  if (!authed) return <LockScreen onUnlock={(pw) => { setAuthed(true); setAdminPw(pw); }} />;
 
   return (
     <div className="admin-page" id="adminShell">
@@ -535,7 +536,7 @@ export default function Admin() {
         </div>
         <div className="admin-header-right">
           <span className="admin-user">// Greatname</span>
-          <button className="admin-logout" onClick={() => setAuthed(false)}>Log out</button>
+          <button className="admin-logout" onClick={() => { setAuthed(false); setAdminPw(''); }}>Log out</button>
         </div>
       </div>
 
@@ -543,7 +544,7 @@ export default function Admin() {
       {tab === 'editor' && <Editor allSeries={allSeries} />}
       {tab === 'series' && <SeriesPanel allSeries={allSeries} onRefresh={loadSeries} />}
       {tab === 'subscribers' && <Subscribers />}
-      {tab === 'newsletter' && <Newsletter />}
+      {tab === 'newsletter' && <Newsletter adminPw={adminPw} />}
     </div>
   );
 }

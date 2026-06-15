@@ -9,7 +9,6 @@ import About from './pages/About.jsx';
 import Contact from './pages/Contact.jsx';
 import Admin from './pages/Admin.jsx';
 
-// Inject Umami analytics once
 function Analytics() {
   useEffect(() => {
     const id = 'e10d7e11-0cc0-4170-8c1f-72faf9a78101';
@@ -24,14 +23,7 @@ function Analytics() {
   return null;
 }
 
-function Layout() {
-  const location = useLocation();
-  const isAdmin = location.pathname === '/admin';
-
-  if (isAdmin) {
-    return <Admin />;
-  }
-
+function PublicLayout() {
   return (
     <>
       <Nav />
@@ -53,18 +45,7 @@ export default function App() {
         <Analytics />
         <Routes>
           <Route path="/admin" element={<Admin />} />
-          <Route path="/*" element={
-            <>
-              <Nav />
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/series/:id" element={<Series />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/contact" element={<Contact />} />
-              </Routes>
-              <Footer />
-            </>
-          } />
+          <Route path="/*" element={<PublicLayout />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
