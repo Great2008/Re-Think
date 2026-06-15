@@ -1,6 +1,7 @@
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
 import { ThemeProvider } from './lib/theme.jsx';
+import { SeriesProvider } from './lib/SeriesContext.jsx';
 import Nav from './components/Nav.jsx';
 import Footer from './components/Footer.jsx';
 import Home from './pages/Home.jsx';
@@ -41,13 +42,15 @@ function PublicLayout() {
 export default function App() {
   return (
     <ThemeProvider>
-      <BrowserRouter>
-        <Analytics />
-        <Routes>
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/*" element={<PublicLayout />} />
-        </Routes>
-      </BrowserRouter>
+      <SeriesProvider>
+        <BrowserRouter>
+          <Analytics />
+          <Routes>
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/*" element={<PublicLayout />} />
+          </Routes>
+        </BrowserRouter>
+      </SeriesProvider>
     </ThemeProvider>
   );
 }
