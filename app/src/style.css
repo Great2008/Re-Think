@@ -942,8 +942,6 @@ footer {
       text-align: center;
     }
 
-    /* Admin shell */
-    #adminShell { display: none; }
 
     .admin-header {
       position: sticky;
