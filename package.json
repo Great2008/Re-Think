@@ -1,7 +1,7 @@
 {
   "name": "rethink-blog",
-  "version": "1.0.0",
-  "description": "Re:Think blog",
+  "version": "2.0.0",
+  "description": "Re:Think blog — React/Vite frontend + Vercel serverless API",
   "dependencies": {
     "nodemailer": "^6.9.9"
   }
