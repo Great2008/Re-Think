@@ -96,7 +96,7 @@ function Dashboard({ onNewPost }) {
       });
     }).catch(console.error);
 
-    sb('rethink_posts?order=created_at.desc&limit=10&select=id,title,subtitle,series_id,active')
+    sb('rethink_posts?order=published_at.desc&limit=10&select=id,title,subtitle,series_id,part_number,active')
       .then(d => setPosts(d || []))
       .catch(console.error);
   }, []);
@@ -120,8 +120,11 @@ function Dashboard({ onNewPost }) {
           ? <div style={{ fontFamily: 'var(--mono)', fontSize: '0.75rem', color: 'var(--text-dim)', padding: '1rem 0' }}>Loading...</div>
           : posts.map(p => (
             <div key={p.id} className="admin-post-row">
-              <span className="admin-post-title">{p.title}</span>
-              <span className="admin-post-meta">{p.series_id} · {p.subtitle}</span>
+              <span className="admin-post-num">{String(p.part_number).padStart(2,'0')}</span>
+              <div className="admin-post-info">
+                <span className="admin-post-title">{p.title}</span>
+                <span className="admin-post-meta">{p.series_id}</span>
+              </div>
               <span className={`admin-post-status ${p.active ? 'live' : 'draft'}`}>{p.active ? 'Live' : 'Draft'}</span>
             </div>
           ))
@@ -377,13 +380,13 @@ function Subscribers() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    sb('rethink_subscribers?order=created_at.desc&select=id,email,active,created_at')
+    sb('rethink_subscribers?order=subscribed_at.desc&select=id,email,active,subscribed_at')
       .then(d => { setSubs(d || []); setLoading(false); })
       .catch(() => setLoading(false));
   }, []);
 
   function exportCSV() {
-    const rows = [['email', 'active', 'subscribed_at'], ...subs.map(s => [s.email, s.active, s.created_at])];
+    const rows = [['email', 'active', 'subscribed_at'], ...subs.map(s => [s.email, s.active, s.subscribed_at])];
     const csv = rows.map(r => r.join(',')).join('\n');
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
@@ -412,7 +415,7 @@ function Subscribers() {
                     <tr key={s.id}>
                       <td className="subs-email">{s.email}</td>
                       <td><span className={`admin-post-status ${s.active ? 'live' : 'draft'}`}>{s.active ? 'Active' : 'Unsubbed'}</span></td>
-                      <td className="subs-date">{formatDate(s.created_at)}</td>
+                      <td className="subs-date">{formatDate(s.subscribed_at)}</td>
                     </tr>
                   ))}
                 </tbody>

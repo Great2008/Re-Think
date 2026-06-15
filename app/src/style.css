@@ -1377,3 +1377,213 @@ footer {
 }
 .admin-series-id { color: var(--accent); min-width: 100px; }
 .admin-series-title { color: var(--text); flex: 1; }
+
+/* ── ADMIN MOBILE OVERRIDES ── */
+
+/* Stats: 2-col grid on mobile, 4-col on desktop */
+.stats-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .stats-row {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Admin header: two rows on mobile */
+.admin-header {
+  height: auto !important;
+  flex-wrap: wrap;
+  padding: 0.6rem 1rem !important;
+  gap: 0.5rem;
+}
+
+.admin-header-left {
+  flex-direction: column;
+  align-items: flex-start !important;
+  gap: 0.4rem !important;
+  width: 100%;
+}
+
+.admin-logo {
+  font-size: 0.72rem;
+}
+
+/* Tabs: scrollable row on mobile */
+.admin-tab-row {
+  display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  width: 100%;
+  border-bottom: 1px solid var(--border);
+}
+
+.admin-tab-row::-webkit-scrollbar { display: none; }
+
+.admin-tab {
+  flex-shrink: 0;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.62rem;
+  border: none !important;
+  border-bottom: 2px solid transparent !important;
+}
+
+.admin-tab.active {
+  border-bottom-color: var(--accent) !important;
+  border-color: transparent !important;
+}
+
+/* Header right: hide username on mobile, keep logout */
+.admin-user { display: none; }
+
+.admin-header-right {
+  position: absolute;
+  top: 0.6rem;
+  right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .admin-header {
+    height: 56px !important;
+    flex-wrap: nowrap;
+    padding: 0 2rem !important;
+  }
+  .admin-header-left {
+    flex-direction: row;
+    align-items: center !important;
+    gap: 1.5rem !important;
+    width: auto;
+  }
+  .admin-tab-row {
+    border-bottom: none;
+    width: auto;
+  }
+  .admin-tab {
+    border: 1px solid transparent !important;
+    border-bottom-color: transparent !important;
+  }
+  .admin-tab.active {
+    border-color: var(--border) !important;
+    border-bottom-color: var(--bg) !important;
+  }
+  .admin-user { display: inline; }
+  .admin-header-right { position: static; }
+}
+
+/* Panel padding on mobile */
+.admin-panel.active {
+  padding: 1rem !important;
+}
+
+@media (min-width: 640px) {
+  .admin-panel.active { padding: 2rem !important; }
+}
+
+/* Post rows on mobile */
+.admin-post-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: nowrap;
+}
+
+.admin-post-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.admin-post-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.8rem;
+}
+
+.admin-post-meta { font-size: 0.62rem; }
+
+.admin-post-num {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--accent);
+  flex-shrink: 0;
+  min-width: 22px;
+}
+
+.admin-post-status {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.admin-post-status.live { color: #55b055; border: 1px solid #55b055; }
+.admin-post-status.draft { color: var(--text-dim); border: 1px solid var(--border); }
+
+/* Editor layout: single col on mobile */
+.editor-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 900px) {
+  .editor-layout { grid-template-columns: 1fr 1fr; }
+  .editor-right { position: sticky; top: 72px; }
+}
+
+/* Editor row: single col on mobile */
+.editor-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+@media (min-width: 480px) {
+  .editor-row { grid-template-columns: 1fr 1fr; }
+}
+
+/* Textarea shorter on mobile */
+.editor-textarea { min-height: 220px; }
+
+@media (min-width: 640px) {
+  .editor-textarea { min-height: 420px; }
+}
+
+/* Subscribers table: scrollable on mobile */
+.subs-table { min-width: 400px; }
+#subscribersTable { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+/* Series rows stack on mobile */
+.admin-series-row {
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.admin-series-id { min-width: auto !important; }
+
+/* New series form grid */
+.new-series-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+@media (min-width: 480px) {
+  .new-series-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* Lock screen on small screens */
+#lockScreen {
+  padding: 2rem 1.25rem;
+}
