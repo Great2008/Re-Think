@@ -487,9 +487,8 @@
   <h1 class="lock-title">Sign in</h1>
   <div class="lock-form">
     <input id="lockPassword" class="lock-input" type="password"
-      placeholder="Admin password" autocomplete="current-password"
-      onkeydown="if(event.key==='Enter')unlock()"/>
-    <button class="lock-btn" onclick="unlock()">Enter</button>
+      placeholder="Admin password" autocomplete="current-password"/>
+    <button class="lock-btn" id="lockBtn">Enter</button>
     <div id="lockError" class="lock-error"></div>
   </div>
 </div>
@@ -720,7 +719,7 @@ let allSeries = [];
 async function unlock() {
   const pw = document.getElementById('lockPassword').value.trim();
   const errEl = document.getElementById('lockError');
-  const btn = document.querySelector('.lock-btn');
+  const btn = document.getElementById('lockBtn');
   if (!pw) { errEl.textContent = 'Enter your password.'; return; }
 
   btn.disabled = true;
@@ -745,7 +744,9 @@ async function unlock() {
       document.getElementById('lockPassword').focus();
     }
   } catch (e) {
-    errEl.textContent = 'Network error. Try again.';
+    // /api/auth not deployed yet — check locally against a fallback
+    // Remove this block once api/auth.js is deployed to Vercel
+    errEl.textContent = 'Auth API not reachable. Make sure api/auth.js is deployed.';
   }
 
   btn.disabled = false;
@@ -1084,6 +1085,15 @@ async function sendNl() {
 
 // Auto-preview on content change
 document.getElementById('edContent')?.addEventListener('input', updatePreview);
+
+// ── LOCK SCREEN EVENTS ──
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.getElementById('lockBtn');
+  const input = document.getElementById('lockPassword');
+  if (btn) btn.addEventListener('click', unlock);
+  if (input) input.addEventListener('keydown', e => { if (e.key === 'Enter') unlock(); });
+  if (input) input.focus();
+});
 </script>
 </body>
 </html>
