@@ -109,6 +109,7 @@ export default function Series() {
         </div>
         <h1>{series.title}</h1>
         <p className="series-hero-desc">{series.description}</p>
+        <SeriesShareRow title={series.title} />
       </section>
 
       <div className="divider">
@@ -156,5 +157,25 @@ export default function Series() {
         />
       )}
     </>
+  );
+}
+
+function SeriesShareRow({ title }) {
+  const url = encodeURIComponent(window.location.href);
+  const text = encodeURIComponent(`"${title}" — Re:Think`);
+
+  return (
+    <div className="share-row series-share-row">
+      <span className="share-label">Share this series</span>
+      <a className="share-btn" href={`https://wa.me/?text=${text}%20${url}`} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      <a className="share-btn" href={`https://x.com/intent/tweet?text=${text}&url=${url}`} target="_blank" rel="noopener noreferrer">𝕏</a>
+      <a className="share-btn" href={`https://www.linkedin.com/sharing/share-offsite/?url=${url}`} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <button
+        className="share-btn"
+        onClick={() => { navigator.clipboard?.writeText(window.location.href); }}
+        type="button">
+        Copy link
+      </button>
+    </div>
   );
 }

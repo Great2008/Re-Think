@@ -599,6 +599,17 @@ footer {
 
 .share-btn:hover { border-color: var(--accent); color: var(--accent); }
 
+/* Series share row sits inside the hero, not the modal */
+.series-share-row {
+  padding: 0;
+  border-top: none;
+  margin-top: 1.75rem;
+}
+
+@media (max-width: 680px) {
+  .series-share-row { padding: 0; }
+}
+
 @media (max-width: 680px) {
   .share-row { padding: 1rem 1.5rem; }
   .about-body, .contact-body { padding: 2rem 1.25rem 3rem; }
