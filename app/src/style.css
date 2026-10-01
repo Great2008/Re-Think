@@ -1599,3 +1599,11 @@ footer {
 #lockScreen {
   padding: 2rem 1.25rem;
 }
+
+/* ── DOWNLOAD PDF BUTTON ── */
+.download-btn {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.download-btn:hover { background: var(--accent); color: var(--bg, #0d0d0d); }
+.download-btn:disabled { opacity: 0.6; cursor: wait; }

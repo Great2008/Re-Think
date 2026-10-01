@@ -5,6 +5,7 @@ import { STATIC_SERIES, STATIC_POSTS } from '../lib/staticContent.js';
 import Modal from '../components/Modal.jsx';
 import Comments from '../components/Comments.jsx';
 import { marked } from 'marked';
+import { downloadSeriesPdf } from '../lib/downloadSeriesPdf.js';
 
 marked.setOptions({ breaks: true, gfm: true });
 
@@ -109,7 +110,7 @@ export default function Series() {
         </div>
         <h1>{series.title}</h1>
         <p className="series-hero-desc">{series.description}</p>
-        <SeriesShareRow title={series.title} />
+        <SeriesShareRow title={series.title} series={series} posts={posts.map(normalisePost)} seriesNum={seriesNum} />
       </section>
 
       <div className="divider">
@@ -160,7 +161,21 @@ export default function Series() {
   );
 }
 
-function SeriesShareRow({ title }) {
+function SeriesShareRow({ title, series, posts, seriesNum }) {
+  const [downloading, setDownloading] = useState(false);
+
+  async function handleDownload() {
+    if (downloading) return;
+    setDownloading(true);
+    try {
+      await downloadSeriesPdf(series, posts, seriesNum);
+    } catch (err) {
+      console.error('PDF download failed', err);
+      alert('Sorry, the PDF could not be created. Please try again.');
+    }
+    setDownloading(false);
+  }
+
   const url = encodeURIComponent(window.location.href);
   const text = encodeURIComponent(`"${title}" — Re:Think`);
 
@@ -175,6 +190,13 @@ function SeriesShareRow({ title }) {
         onClick={() => { navigator.clipboard?.writeText(window.location.href); }}
         type="button">
         Copy link
+      </button>
+      <button
+        className="share-btn download-btn"
+        onClick={handleDownload}
+        disabled={downloading}
+        type="button">
+        {downloading ? 'Preparing PDF…' : '↓ Download PDF'}
       </button>
     </div>
   );
